@@ -12,6 +12,6 @@ class Sponsor extends Model
     // uno sponsor può essere incluso in più appartementi 
     public function apartments()
     {
-        return $this->belongsToMany(Apartment::class);
+        return $this->belongsToMany(Apartment::class)->withPivot("start_date","end_date");
     }
 }
