@@ -10,6 +10,16 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    // Un utente può avere più appartamenti 
+    public function apartments()
+    {
+        return $this->hasMany(Apartment::class);
+    }
+
+
+
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
