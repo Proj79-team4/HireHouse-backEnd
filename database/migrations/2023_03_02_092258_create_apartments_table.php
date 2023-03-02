@@ -25,8 +25,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('check_in')->nullable();
             $table->string('check_out')->nullable();
-            $table->float('latitude', 10, 8)->nullable();
-            $table->float('longitude', 10, 8)->nullable();
+            $table->float('latitude', 20, 10)->nullable();
+            $table->float('longitude', 20, 10)->nullable();
 
             // FK User_id
             $table->unsignedBigInteger('user_id');
