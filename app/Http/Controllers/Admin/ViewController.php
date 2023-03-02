@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Sponsor;
+use App\Models\View;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class SponsorController extends Controller
+class ViewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class SponsorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sponsor $sponsor)
+    public function show(View $view)
     {
         //
     }
@@ -42,7 +43,7 @@ class SponsorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sponsor $sponsor)
+    public function edit(View $view)
     {
         //
     }
@@ -50,7 +51,7 @@ class SponsorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sponsor $sponsor)
+    public function update(Request $request, View $view)
     {
         //
     }
@@ -58,7 +59,7 @@ class SponsorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sponsor $sponsor)
+    public function destroy(View $view)
     {
         //
     }
