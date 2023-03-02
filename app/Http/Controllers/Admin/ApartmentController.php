@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Rule;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class RuleController extends Controller
+class ApartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class RuleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Rule $rule)
+    public function show(Apartment $apartment)
     {
         //
     }
@@ -42,7 +43,7 @@ class RuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Rule $rule)
+    public function edit(Apartment $apartment)
     {
         //
     }
@@ -50,7 +51,7 @@ class RuleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rule $rule)
+    public function update(Request $request, Apartment $apartment)
     {
         //
     }
@@ -58,7 +59,7 @@ class RuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rule $rule)
+    public function destroy(Apartment $apartment)
     {
         //
     }
