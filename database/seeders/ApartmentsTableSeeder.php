@@ -3,10 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Apartment;
+use App\Models\Rule;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+
 
 class ApartmentsTableSeeder extends Seeder
 {
@@ -14,6 +16,7 @@ class ApartmentsTableSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(Faker $faker){
+        $rules=Rule::all();
         
 
 
@@ -33,6 +36,16 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->latitude=$faker->latitude($min=-90,$max=90);
             $apartment->longitude=$faker->longitude($min=-180,$max=180);
             $apartment->user_id=rand(1,15);
+            $apartment->save();
+            $apartment->rules()->attach($rules->random(rand(1,$rules->count()))->pluck("id"));
+            if(rand(0,1)===0){
+                $apartment->sponsors()->attach(rand(1,3),["start_date"=>$faker->date() . " ". $faker->time(),"end_date"=>$faker->date() . " ". $faker->time()]);
+                
+                
+                
+                
+            };
+            $apartment->services()->sync(rand(1,12));
             $apartment->save();
 
         }
