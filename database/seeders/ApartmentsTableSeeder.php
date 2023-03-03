@@ -39,9 +39,10 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->save();
             $apartment->rules()->attach($rules->random(rand(1,$rules->count()))->pluck("id"));
             if(rand(0,1)===0){
-                $apartment->sponsors()->sync(rand(1,3));
-                $apartment->pivot->start_date="12/01/03";
-                $apartment->pivot->end_date="12/01/03";
+                $apartment->sponsors()->attach(rand(1,3),[$faker->date(),$faker->date() . $faker->time()]);
+                
+                
+                
             };
             $apartment->services()->sync(rand(1,12));
             $apartment->save();

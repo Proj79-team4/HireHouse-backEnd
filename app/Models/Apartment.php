@@ -38,7 +38,7 @@ class Apartment extends Model
     // un appartamento può avere più sponsors
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class)->withPivot("start_date","end_date");
+        return $this->belongsToMany(Sponsor::class);
     }
 
      // un appartamento può avere più Rules
