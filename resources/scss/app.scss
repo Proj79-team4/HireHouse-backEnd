@@ -1,1 +1,16 @@
-@import '~bootstrap/scss/bootstrap'
+@use "@fortawesome/fontawesome-free/css/all.min.css";
+@import '~bootstrap/scss/bootstrap';
+.apartment-show {
+    .thumb-img-container {
+        height: 300px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            display: block;
+            margin: auto
+        }
+    }
+}
+
