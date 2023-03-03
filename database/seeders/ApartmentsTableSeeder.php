@@ -20,7 +20,7 @@ class ApartmentsTableSeeder extends Seeder
         
 
 
-        for($i=0;$i<15;$i++){
+        for($i=0;$i<3;$i++){
             $apartment=new Apartment();
             $apartment->title=$faker->words(3,true);
             $apartment->num_rooms=$faker->randomDigit();
@@ -39,7 +39,7 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->save();
             $apartment->rules()->attach($rules->random(rand(1,$rules->count()))->pluck("id"));
             if(rand(0,1)===0){
-                $apartment->sponsors()->attach(rand(1,3),[$faker->date(),$faker->date() . $faker->time()]);
+                $apartment->sponsors()->attach(rand(1,3),["start_date"=>$faker->date() . " ". $faker->time(),"end_date"=>$faker->date() . " ". $faker->time()]);
                 
                 
                 
