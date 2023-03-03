@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditApartmentRequest;
+use App\Http\Requests\StoreApartmentRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -13,7 +16,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        
+
     }
 
     /**
@@ -21,15 +25,26 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.apartments.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreApartmentRequest $request)
     {
-        //
+        $data=$request->validated();
+        $data=$request->all();
+        $newApartment=Apartment::create($data);
+        if(key_exists("cover_img",$data)){
+            $path=Storage::put("apartment_images",$data["cover_img"]);
+            $newApartment->cover_img=$path;
+            $newApartment->save();
+        }
+
+        return redirect()->route("admin.apartments.show",$newApartment->id);
+        
+
     }
 
     /**
@@ -37,7 +52,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+        return view("admin.apartments.show",compact("apartment"));
     }
 
     /**
@@ -45,15 +60,27 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        return view("admin.apartments.edit",compact("apartment"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(EditApartmentRequest $request, Apartment $apartment)
     {
-        //
+        $data=$request->validated();
+        $data=$request->all();
+        if(key_exists("cover_img",$data)){
+            $path=Storage::put("apartment_images",$data["cover_img"]);
+            Storage::delete($apartment->cover_img);
+        }
+        $apartment->update([
+            ...$data,
+            "cover_img"=>$path ?? $apartment->cover_img
+        ]);
+
+        return redirect()->route("admin.apartments.show",$apartment->id);
+
     }
 
     /**
@@ -61,6 +88,9 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        Storage::delete($apartment->cover_img);
+        $apartment->delete();
+        return redirect()->route("admin.dashboard");
+        
     }
 }
