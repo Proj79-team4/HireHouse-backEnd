@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('apartment_sponsor', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             
             // FK ID APPARTAMENTO
             $table->unsignedBigInteger('apartment_id');
