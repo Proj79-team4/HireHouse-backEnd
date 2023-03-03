@@ -11,9 +11,9 @@ class DashboardController extends Controller
 {
     public function home(){
         
-        $apartment = Apartment::where('user_id', Auth::user()->id)->get();
+        $apartments = Apartment::where('user_id', Auth::user()->id)->get();
 
 
-        return view("admin.dashboard",compact("apartment"));
+        return view("admin.dashboard",compact("apartments"));
     }
 }
