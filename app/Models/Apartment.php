@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Apartment extends Model
 {
     use HasFactory;
-    protected $fillable=["title","num_rooms","num_beds","num_bathrooms","square_meters","full_addres","visibile","price","description","check_in","check_out","latitude","longitude"];
+    protected $fillable=["title","cover_img","user_id","num_rooms","num_beds","num_bathrooms","square_meters","full_address","visibile","price","description","check_in","check_out","latitude","longitude"];
 
     // un appartamento sarà posseduto da un solo utente
     public function user()
