@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
+use App\Models\Rule;
+use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
@@ -25,7 +28,10 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view("admin.apartments.create");
+        $rules = Rule::all();
+        $services = Service::all();
+
+        return view("admin.apartments.create", compact('rules', 'services'));
     }
 
     /**
@@ -33,14 +39,28 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
+
         $data=$request->validated();
         $data=$request->all();
-        $newApartment=Apartment::create($data);
+        
         if(key_exists("cover_img",$data)){
             $path=Storage::put("apartment_images",$data["cover_img"]);
-            $newApartment->cover_img=$path;
-            $newApartment->save();
         }
+
+        $newApartment=Apartment::create([
+            ...$data,
+            'user_id' => Auth::user()->id,
+            'cover_img' => $path ?? ''
+        ]);
+
+        if($request->has('rules')){
+            $newApartment->rules()->attach($data['rules']);
+        }
+
+        if ($request->has('services')) {
+            $newApartment->services()->attach($data['services']);
+        }
+
 
         return redirect()->route("admin.apartments.show",$newApartment->id);
         

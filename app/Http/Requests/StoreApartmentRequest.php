@@ -27,15 +27,15 @@ class StoreApartmentRequest extends FormRequest
             "num_beds"=>"integer|nullable|between:0,15",
             "num_bathrooms"=>"integer|nullable|between:0,7",
             "square_meters"=>"integer|between:0,10000|nullable",
-            "full_addres"=>"string|required",
+            "full_address"=>"string|required",
             "cover_img"=>"image|nullable",
             "visibile"=>"boolean|nullable",
             "price"=>"numeric|required|between:0,10000",
-            "description"=>"text|nullable",
+            "description"=>"string|nullable",
             "check_in"=>"string|nullable",
             "check_out"=>"string|nullable",
-            "latitude"=>"numeric|required",
-            "longitude"=>"numeric|required",
+            // "latitude"=>"numeric|required",
+            // "longitude"=>"numeric|required",
         
         ];
     }

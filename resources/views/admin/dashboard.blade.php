@@ -1,11 +1,14 @@
+@extends('layouts.app')
+
 @php
 
 // Funzione che ritorna il conteggio dei messaggi per ogni appartamento
-function countmessage ($apartments){
+function countmessage ($listaAppartamenti){
 $counter = 0;
-foreach ($apartments as $apartment) {
+foreach ($listaAppartamenti as $apartment) {
 
 $counter += $apartment->messages()->count();
+
 
 }
 
@@ -13,8 +16,6 @@ return $counter;
 }
 
 @endphp
-
-@extends('layouts.app')
 
 @section('content')
 <div class="container user-dashboard py-3">
@@ -50,10 +51,10 @@ return $counter;
 
                     </ul>
                     <div class="card-body">
-                        <a href="{{route(" admin.apartments.show" , $apartment->id)}}" class="card-link">
+                        <a href="{{route('admin.apartments.show' , $apartment->id)}}" class="card-link">
                             Maggiori informazioni
                         </a>
-                        <a href="{{route(" admin.apartments.edit" , $apartment->id)}}" class="card-link">Modifica</a>
+                        <a href="{{route('admin.apartments.edit' , $apartment->id)}}" class="card-link">Modifica</a>
                     </div>
                 </div>
                 @endforeach
@@ -69,7 +70,7 @@ return $counter;
                             <div class="card-body p-4">
                                 <div class="d-flex text-black">
                                     <div class="flex-shrink-0">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                        <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
                                             alt="Generic placeholder image" class="img-fluid"
                                             style="width: 180px; border-radius: 10px;">
                                     </div>
@@ -84,7 +85,7 @@ return $counter;
                                             </div>
                                             <div class="px-3">
                                                 <p class="small text-muted mb-1">Messaggi</p>
-                                                <p class="mb-0">{{countmessage(Auth::user()->apartments())}}</p>
+                                                <p class="mb-0">{{countmessage($apartments)}}</p>
                                             </div>
                                         </div>
                                         <div class="d-flex pt-1">
