@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             $user->email=$faker->email();
             $user->surname=$faker->lastName();
             $user->date_of_birth=$faker->date();
-            $user->password="password";
+            $user->password="$2y$10$.mwzIaNj3.UTfkVjPCq0euGYZGxYx8ZFPthRN8fYsp8t3ioXcOi6K";
             $user->save();
 
         }
