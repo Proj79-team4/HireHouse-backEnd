@@ -1,5 +1,12 @@
 @use "@fortawesome/fontawesome-free/css/all.min.css";
 @import '~bootstrap/scss/bootstrap';
+
+$turchese: #0FA3B1;
+$azzuro: #B5E2FA;
+$sabbia: #EDDEA4;
+$arancione: #F7A072;
+$biancosporco: #F9F7F3;
+
 .apartment-show {
     .thumb-img-container {
         height: 300px;
@@ -14,3 +21,27 @@
     }
 }
 
+.user-dashboard{
+    .background-image-profile{
+        background-color: $turchese;
+    }
+}
+
+.my-btn-turchese{
+    background-color: $turchese;
+    color: white;
+}
+
+.my-btn-sabbia{
+    background-color: $sabbia;
+    &:hover{
+        border-color: $sabbia;
+    }
+}
+
+.my-btn-outline-sabbia{
+    border-color: $sabbia;
+    &:hover{
+        background-color: $sabbia;
+    }
+}
