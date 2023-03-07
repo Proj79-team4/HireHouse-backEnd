@@ -33,6 +33,7 @@ Route::middleware('auth')
     ->group(function () {
         Route::get("/",[DashboardController::class,"home"])->name("dashboard");
         Route::resource("apartments",ApartmentController::class);
+        
 
     });
 

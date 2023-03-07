@@ -88,7 +88,10 @@
         <div class="col-md-3">
             <label for="inputRomms" class="form-label">Numero stanze</label>
             <input type="number" class="form-control @error("num_rooms") is-invalid @enderror" id="inputRooms"
-                name="num_rooms">
+                name="num_rooms" min="0">
+                <div class="invalid-feedback">
+                    Il numero deve essere maggiore di 0 
+                  </div>
 
             @error('num_rooms')
             <span class="invalid-feedback" role="alert">
@@ -101,7 +104,10 @@
         <div class="col-md-3">
             <label for="inputBathrooms" class="form-label">Numero bagni</label>
             <input type="number" class="form-control @error("num_bathrooms") is-invalid @enderror" id="inputBathrooms"
-                name="num_bathrooms">
+                name="num_bathrooms" min="0">
+                <div class="invalid-feedback">
+                    Il numero deve essere maggiore di 0 
+                  </div>
 
             @error('num_bathrooms')
             <span class="invalid-feedback" role="alert">
@@ -114,7 +120,10 @@
         <div class="col-md-3">
             <label for="inputBeds" class="form-label">Numero letti</label>
             <input type="number" class="form-control @error("num_beds") is-invalid @enderror" id="inputBeds"
-                name="num_beds">
+                name="num_beds" min="0">
+                <div class="invalid-feedback">
+                    Il numero deve essere maggiore di 0 
+                  </div>
 
             @error('num_beds')
             <span class="invalid-feedback" role="alert">
@@ -127,7 +136,10 @@
         <div class="col-md-3">
             <label for="inputSquareMeters" class="form-label">Metri quadri</label>
             <input type="number" class="form-control @error("square_meters") is-invalid @enderror"
-                id="inputSquareMeters" name="square_meters">
+                id="inputSquareMeters" name="square_meters" min="0">
+                <div class="invalid-feedback">
+                    Il numero deve essere maggiore di 0 
+                  </div>
 
             @error('square_meters')
             <span class="invalid-feedback" role="alert">
@@ -139,8 +151,8 @@
         {{-- Check-in --}}
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-in</label>
-            <input type="text" class="form-control @error("check_in") is-invalid @enderror" id="inputPassword4"
-                placeholder="10:00 am" name="check_in">
+            <input type="time" class="form-control @error("check_in") is-invalid @enderror" id="inputPassword4"
+                placeholder="10:00" name="check_in">
 
             @error('check_in')
             <span class="invalid-feedback" role="alert">
@@ -152,8 +164,8 @@
         {{-- Check-out --}}
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-out</label>
-            <input type="text" class="form-control @error("check_out") is-invalid @enderror" id="inputPassword4"
-                placeholder="18:00 pm" name="check_out">
+            <input type="time" class="form-control @error("check_out") is-invalid @enderror" id="inputPassword4"
+                placeholder="18:00" name="check_out">
 
             @error('check_out')
             <span class="invalid-feedback" role="alert">

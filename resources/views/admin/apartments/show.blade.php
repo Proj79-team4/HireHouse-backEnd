@@ -3,13 +3,22 @@
 @section('content')
     <div class="container py-3 apartment-show">
         <h1>{{ $apartment->title }}</h1>
-        <div class="d-flex ">
-            <div class="me-2 fw-bold text-decoration-underline">{{ $apartment->views->count() }} views</div>
-            <div>{{ $apartment->full_address }}</div>
+        <div class="d-flex  align-items-center justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+                <button type="button" class="btn bg-azzurro">
+                    Visualizzazioni <span class="badge bg-turchese ms-2">{{ $apartment->views->count() }}</span>
+                  </button>
+                <div class="fw-bold">{{ $apartment->full_address }}</div>
+
+            </div>
+            <div class="">
+                <a href="{{route("admin.apartments.edit",$apartment->id)}}" class="btn my-btn-sabbia">Modifica</a>
+           </div>
 
         </div>
-        <div class="py-3 thumb-img-container">
+        <div class="py-3 thumb-img-container ">
             <img src="{{ asset('storage/' . $apartment->cover_img) }}" alt="">
+            
         </div>
         <div>
 
@@ -20,13 +29,18 @@
                     <h5>Informazioni</h5>
                     <ul class="list-group">
                         <li class="list-group-item">Numero di bagni: <span
-                                class="text-decoration-underline">{{ $apartment->num_bathrooms }}</span></li>
+                                class="">{{ $apartment->num_bathrooms }}</span></li>
                         <li class="list-group-item">Numero di letti: <span
-                                class="text-decoration-underline">{{ $apartment->num_beds }}</span></li>
+                                class="">{{ $apartment->num_beds }}</span></li>
                         <li class="list-group-item">Numero di stanze: <span
-                                class="text-decoration-underline">{{ $apartment->num_rooms }}</span></li>
+                                class="">{{ $apartment->num_rooms }}</span></li>
                         <li class="list-group-item">Metri quadri:<span
-                                class="text-decoration-underline">{{ $apartment->square_meters }} mq</span></li>
+                                class="">{{ $apartment->square_meters }} mq</span></li>
+                                
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item"> <span
+                            class="">{{ $apartment->visibile===1 ? "Visibile" : "Non visibile" }}</span></li>
                     </ul>
 
                 </div>
@@ -36,7 +50,7 @@
                     <ul class="list-group">
                         @foreach ($apartment->rules as $rule)
                             <li class="list-group-item">
-                                <span class="text-decoration-underline me-2">
+                                <span class=" me-2">
                                     {{ $rule->name }}
                                 </span>
                                 <i class="fa-solid {{ $rule->icon }}"></i>
@@ -53,7 +67,7 @@
                     <ul class="list-group">
                         @foreach ($apartment->services as $service)
                             <li class="list-group-item">
-                                <span class="text-decoration-underline me-2">
+                                <span class=" me-2">
                                     {{ $service->name }}
                                 </span>
                                 <i class="fa-solid {{ $service->icon }}"></i>

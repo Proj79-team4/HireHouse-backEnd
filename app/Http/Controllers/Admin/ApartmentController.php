@@ -77,6 +77,11 @@ class ApartmentController extends Controller
     public function edit(Apartment $apartment)
 
     {
+        //controlliamo che l'utente loggato abbia la possibilita di modificare l'appartamento facendo un check con l'id
+        if($apartment->user_id!==Auth::id()){
+            abort(403,"Non sei autorizzato a modificare questo appartamento");
+        };
+        
         $apartment->load("rules", "services");
         $rules = Rule::all();
         $services = Service::all();
@@ -131,7 +136,10 @@ class ApartmentController extends Controller
         if(!$apartment->cover_img==="apartment_images/house_default.png"){
             Storage::delete($apartment->cover_img);
         }
+        $apartment->rules()->detach();
+        $apartment->services()->detach();
         $apartment->delete();
+
         return redirect()->route("admin.dashboard");
     }
 }

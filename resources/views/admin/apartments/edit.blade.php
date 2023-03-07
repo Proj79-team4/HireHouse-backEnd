@@ -88,8 +88,11 @@
             <div class="col-md-3">
                 <label for="inputRomms" class="form-label">Numero stanze</label>
                 <input type="number" class="form-control @error(' num_rooms') is-invalid @enderror" id="inputRooms"
-                    name="num_rooms" value="{{ old('num_rooms') ? old('num_rooms') : $apartment->num_rooms }}">
+                min="0" name="num_rooms" value="{{ old('num_rooms') ? old('num_rooms') : $apartment->num_rooms }}">
 
+                    <div class="invalid-feedback">
+                        Il numero deve essere maggiore di 0 
+                      </div>
                 @error('num_rooms')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -101,9 +104,12 @@
             <div class="col-md-3">
                 <label for="inputBathrooms" class="form-label">Numero bagni</label>
                 <input type="number" class="form-control @error(' num_bathrooms') is-invalid @enderror" id="inputBathrooms"
-                    name="num_bathrooms"
+                min="0"  name="num_bathrooms"
                     value="{{ old('num_bathrooms') ? old('num_bathrooms') : $apartment->num_bathrooms }}">
 
+                    <div class="invalid-feedback">
+                        Il numero deve essere maggiore di 0 
+                      </div>
                 @error('num_bathrooms')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -115,8 +121,11 @@
             <div class="col-md-3">
                 <label for="inputBeds" class="form-label">Numero letti</label>
                 <input type="number" class="form-control @error(' num_beds') is-invalid @enderror" id="inputBeds"
-                    name="num_beds" value="{{ old('num_beds') ? old('num_beds') : $apartment->num_beds }}">
+                min="0" name="num_beds" value="{{ old('num_beds') ? old('num_beds') : $apartment->num_beds }}">
 
+                    <div class="invalid-feedback">
+                        Il numero deve essere maggiore di 0 
+                      </div>
                 @error('num_beds')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -129,8 +138,11 @@
                 <label for="inputSquareMeters" class="form-label">Metri quadri</label>
                 <input type="number" class="form-control @error(' square_meters') is-invalid @enderror"
                     id="inputSquareMeters" name="square_meters"
-                    value="{{ old('square_meters') ? old('square_meters') : $apartment->square_meters }}">
+                    min="0" value="{{ old('square_meters') ? old('square_meters') : $apartment->square_meters }}">
 
+                    <div class="invalid-feedback">
+                        Il numero deve essere maggiore di 0 
+                      </div>
                 @error('square_meters')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -141,7 +153,7 @@
             {{-- Check-in --}}
             <div class="col-md-3">
                 <label for="inputPassword4" class="form-label">Check-in</label>
-                <input type="text" class="form-control @error(' check_in') is-invalid @enderror" id="inputPassword4"
+                <input type="time" class="form-control @error(' check_in') is-invalid @enderror" id="inputPassword4"
                     placeholder="10:00 am" name="check_in"
                     value="{{ old('check_in') ? old('check_in') : $apartment->check_in }}">
 
@@ -155,7 +167,7 @@
             {{-- Check-out --}}
             <div class="col-md-3">
                 <label for="inputPassword4" class="form-label">Check-out</label>
-                <input type="text" class="form-control @error(' check_out') is-invalid @enderror" id="inputPassword4"
+                <input type="time" class="form-control @error(' check_out') is-invalid @enderror" id="inputPassword4"
                     placeholder="18:00 pm" name="check_out"
                     value="{{ old('check_out') ? old('check_out') : $apartment->check_out }}">
 
