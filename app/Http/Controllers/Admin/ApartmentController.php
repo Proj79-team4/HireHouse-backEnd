@@ -48,7 +48,7 @@ class ApartmentController extends Controller
         $newApartment = Apartment::create([
             ...$data,
             'user_id' => Auth::user()->id,
-            'cover_img' => $path ?? ''
+            'cover_img' => $path ?? "apartment_images/house_default.png"
         ]);
 
         if ($request->has('rules')) {
@@ -108,7 +108,10 @@ class ApartmentController extends Controller
         }
         if (key_exists("cover_img", $data)) {
             $path = Storage::put("apartment_images", $data["cover_img"]);
-            Storage::delete($apartment->cover_img);
+            if(!$apartment->cover_img==="apartment_images/house_default.png"){
+                Storage::delete($apartment->cover_img);
+            }
+            
         }
 
         $apartment->fill($data);
@@ -125,7 +128,9 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        Storage::delete($apartment->cover_img);
+        if(!$apartment->cover_img==="apartment_images/house_default.png"){
+            Storage::delete($apartment->cover_img);
+        }
         $apartment->delete();
         return redirect()->route("admin.dashboard");
     }

@@ -4,13 +4,16 @@
 
 <div class="container mt-5">
 
-    <form method="POST" action="{{ route('admin.apartments.store') }}" class="row g-3 " enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.apartments.store') }}" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
         @csrf
 
         {{-- Titolo --}}
         <div class="col-md-6">
             <label for="inputTitle" class="form-label ">Nome Immobile</label>
-            <input type="text" class="form-control @error(" title") is-invalid @enderror" id="inputTitle" name="title">
+            <input type="text" class="form-control @error("title") is-invalid @enderror" id="inputTitle" name="title" required minlength="8">
+            <div class="invalid-feedback">
+                Il campo è obbligatorio e deve avere almeno 8 caratteri
+              </div>
 
             @error('title')
             <span class="invalid-feedback" role="alert">
@@ -34,8 +37,11 @@
         {{-- Prezzo --}}
         <div class="col-md-3">
             <label for="inputPrice" class="form-label">Prezzo</label>
-            <input type="number" class="form-control @error(" price") is-invalid @enderror" id="inputPrice"
-                name="price">
+            <input type="number" class="form-control @error("price") is-invalid @enderror" id="inputPrice"
+                name="price" required step=".01" >
+                <div class="invalid-feedback">
+                    Il campo è obbligatorio 
+                  </div>
 
             @error('price')
             <span class="invalid-feedback" role="alert">
@@ -47,8 +53,11 @@
         {{-- Indirizzo --}}
         <div class="col-12">
             <label for="inputAddress" class="form-label">Indirizzo</label>
-            <input type="text" class="form-control @error(" full_address") is-invalid @enderror" id="inputAddress"
-                placeholder="1234 Main St" name="full_address">
+            <input type="text" class="form-control @error("full_address") is-invalid @enderror" id="inputAddress"
+                placeholder="1234 Main St" name="full_address" required>
+                <div class="invalid-feedback">
+                    Il campo è obbligatorio 
+                  </div>
 
             @error('full_address')
             <span class="invalid-feedback" role="alert">
@@ -60,9 +69,10 @@
         {{-- Descrizione --}}
         <div class="col-12">
             <div class="form-floating">
-                <textarea class="form-control @error(" description") is-invalid @enderror"
+                <textarea class="form-control @error("description") is-invalid @enderror"
                     placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
-                    name="description"></textarea>
+                    name="description" ></textarea>
+                                        
                 <label for="floatingTextarea2">Descrizione</label>
 
 
@@ -77,7 +87,7 @@
         {{-- Numero stanze --}}
         <div class="col-md-3">
             <label for="inputRomms" class="form-label">Numero stanze</label>
-            <input type="number" class="form-control @error(" num_rooms") is-invalid @enderror" id="inputRooms"
+            <input type="number" class="form-control @error("num_rooms") is-invalid @enderror" id="inputRooms"
                 name="num_rooms">
 
             @error('num_rooms')
@@ -90,7 +100,7 @@
         {{-- Numero bagni--}}
         <div class="col-md-3">
             <label for="inputBathrooms" class="form-label">Numero bagni</label>
-            <input type="number" class="form-control @error(" num_bathrooms") is-invalid @enderror" id="inputBathrooms"
+            <input type="number" class="form-control @error("num_bathrooms") is-invalid @enderror" id="inputBathrooms"
                 name="num_bathrooms">
 
             @error('num_bathrooms')
@@ -103,7 +113,7 @@
         {{-- Numero letti --}}
         <div class="col-md-3">
             <label for="inputBeds" class="form-label">Numero letti</label>
-            <input type="number" class="form-control @error(" num_beds") is-invalid @enderror" id="inputBeds"
+            <input type="number" class="form-control @error("num_beds") is-invalid @enderror" id="inputBeds"
                 name="num_beds">
 
             @error('num_beds')
@@ -116,7 +126,7 @@
         {{-- Metri quadri --}}
         <div class="col-md-3">
             <label for="inputSquareMeters" class="form-label">Metri quadri</label>
-            <input type="number" class="form-control @error(" square_meters") is-invalid @enderror"
+            <input type="number" class="form-control @error("square_meters") is-invalid @enderror"
                 id="inputSquareMeters" name="square_meters">
 
             @error('square_meters')
@@ -129,7 +139,7 @@
         {{-- Check-in --}}
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-in</label>
-            <input type="text" class="form-control @error(" check_in") is-invalid @enderror" id="inputPassword4"
+            <input type="text" class="form-control @error("check_in") is-invalid @enderror" id="inputPassword4"
                 placeholder="10:00 am" name="check_in">
 
             @error('check_in')
@@ -142,7 +152,7 @@
         {{-- Check-out --}}
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-out</label>
-            <input type="text" class="form-control @error(" check_out") is-invalid @enderror" id="inputPassword4"
+            <input type="text" class="form-control @error("check_out") is-invalid @enderror" id="inputPassword4"
                 placeholder="18:00 pm" name="check_out">
 
             @error('check_out')
@@ -242,6 +252,21 @@
     </form>
 
 </div>
+
+<script>
+    const forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.from(forms).forEach(form => {
+  form.addEventListener('submit', event => {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    form.classList.add('was-validated')
+  }, false)})
+</script>
 
 
 @endsection

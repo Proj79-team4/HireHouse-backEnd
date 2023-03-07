@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5">
 
-        <form method="POST" action="{{ route('admin.apartments.update', $apartment->id) }}" class="row g-3 "
+        <form method="POST" action="{{ route('admin.apartments.update', $apartment->id) }}" class="row g-3 needs-validation " novalidate
             enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -12,8 +12,11 @@
             <div class="col-md-6">
                 <label for="inputTitle" class="form-label ">Nome Immobile</label>
                 <input type="text" class="form-control @error(' title') is-invalid @enderror" id="inputTitle"
-                    name="title" value="{{ old('title') ? old('title') : $apartment->title }}">
+                    name="title" value="{{ old('title') ? old('title') : $apartment->title }}" required minlength="8">
 
+                    <div class="invalid-feedback">
+                        Il campo è obbligatorio e deve avere almeno 8 caratteri
+                      </div>
                 @error('title')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -37,8 +40,10 @@
             <div class="col-md-3">
                 <label for="inputPrice" class="form-label">Prezzo</label>
                 <input type="number" class="form-control @error(' price') is-invalid @enderror" id="inputPrice"
-                    name="price" value="{{ old('price') ? old('price') : $apartment->price }}">
-
+                    name="price" value="{{ old('price') ? old('price') : $apartment->price }}"  required step=".01">
+                    <div class="invalid-feedback">
+                        Il campo è obbligatorio 
+                      </div>
                 @error('price')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -51,8 +56,11 @@
                 <label for="inputAddress" class="form-label">Indirizzo</label>
                 <input type="text" class="form-control @error(' full_address') is-invalid @enderror" id="inputAddress"
                     placeholder="1234 Main St" name="full_address"
-                    value="{{ old('full_address') ? old('full_address') : $apartment->full_address }}">
+                    value="{{ old('full_address') ? old('full_address') : $apartment->full_address }}" required>
 
+                    <div class="invalid-feedback">
+                        Il campo è obbligatorio 
+                      </div>
                 @error('full_address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -203,7 +211,7 @@
 
                                         <i class="fa-solid {{ $rule->icon }}"></i>
                                         <label class="form-check-label"
-                                            for="tagCheckbox{{ $loop->index }}">{{ $rule->name }}</label>
+                                            for="tagCheckbox_{{ $loop->index }}">{{ $rule->name }}</label>
                                     </div>
                                 @endforeach
 
@@ -225,13 +233,13 @@
                                     <div class="form-check form-check @error('services') is-invalid @enderror">
 
                                         <input class="form-check-input @error('services') is-invalid @enderror"
-                                            type="checkbox" id="tagCheckbox_{{ $loop->index }}"
+                                            type="checkbox" id="tagCheckbox2_{{ $loop->index }}"
                                             value="{{ $service->id }}" name="services[]"
                                             {{ in_array($service->id, $apartment->services()->get()->pluck('id')->toArray()) ? 'checked' : '' }}>
 
                                         <i class="fa-solid {{ $service->icon }}"></i>
                                         <label class="form-check-label"
-                                            for="tagCheckbox{{ $loop->index }}">{{ $service->name }}</label>
+                                            for="tagCheckbox2_{{ $loop->index }}">{{ $service->name }}</label>
                                     </div>
                                 @endforeach
                             </div>
@@ -249,4 +257,18 @@
         </form>
 
     </div>
+    <script>
+        const forms = document.querySelectorAll('.needs-validation')
+    
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+    
+        form.classList.add('was-validated')
+      }, false)})
+    </script>
 @endsection
