@@ -2,22 +2,23 @@
 @import '~bootstrap/scss/bootstrap';
 
 $turchese: #0FA3B1;
-$azzuro: #B5E2FA;
+$azzurro: #B5E2FA;
 $sabbia: #EDDEA4;
 $arancione: #F7A072;
 $biancosporco: #F9F7F3;
 
 .apartment-show {
     .thumb-img-container {
-        height: 300px;
+        height: 650px;
 
         img {
             height: 100%;
             width: 100%;
-            object-fit: contain;
+            object-fit:fill;
             display: block;
-            margin: auto
+            
         }
+
     }
 }
 
@@ -30,6 +31,9 @@ $biancosporco: #F9F7F3;
 .my-btn-turchese{
     background-color: $turchese;
     color: white;
+    &:hover{
+        background-color: $azzurro;
+    }
 }
 
 .my-btn-sabbia{
@@ -39,3 +43,9 @@ $biancosporco: #F9F7F3;
     }
 }
 
+.go_back{
+    a{
+        color:$turchese;
+        font-size: 16px;
+    }
+}

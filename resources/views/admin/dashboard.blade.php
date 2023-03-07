@@ -24,14 +24,14 @@ return $counter;
         {{-- Lista appartamenti --}}
         <div class="col-8">
 
-            <a href="{{ route('admin.apartments.create')}}" class="btn my-btn-turchese">
+            <a href="{{ route('admin.apartments.create')}}" class="btn my-btn-turchese mb-5">
                 <i class="fa-solid fa-plus"></i> Crea
             </a>
 
-            <h6>I tuoi appartamenti:</h6>
-            <div class="row">
+            <h5 class="fw-bold">I TUOI ANNUNCI:</h5>
+            <div class="row mt-5">
                 @foreach ($apartments as $apartment)
-                <div class="card" style="width: 18rem;">
+                <div class="card p-0" style="width: 18rem;">
                     <img src="{{ asset('storage/' . $apartment->cover_img) }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $apartment->title ." #". $apartment->id }}</h5>
@@ -63,7 +63,7 @@ return $counter;
         {{-- Informazioni utente --}}
         <div class="col-4">
 
-            <div class=" h-100">
+            <div>
                 <div class="row d-flex align-items-center h-100">
                     <div class="col col-md-9 col-lg-7 col-xl-5">
                         <div class="card background-image-profile" style="border-radius: 15px;">
