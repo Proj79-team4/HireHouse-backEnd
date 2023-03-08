@@ -29,8 +29,17 @@
                 <h5 class="fw-bold">I TUOI ANNUNCI:</h5>
                 <div class="row mt-5 gap-4">
                     @foreach ($apartments as $apartment)
-                        <div class="card p-0" style="width: 18rem;">
+                        <div class="card p-0 positision-relative" style="width: 18rem;">
                             <img src="{{ asset('storage/' . $apartment->cover_img) }}" class="card-img-top" alt="...">
+
+                            <a href="{{route("admin.messages.index",$apartment->id)}}" class="btn my-btn-orange position-absolute message-span">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ countmessage([$apartment]) }}
+                                    
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h5 class="card-title">{{ $apartment->title . ' #' . $apartment->id }}</h5>
                                 <p class="card-text">{{ $apartment->description }}</p>
@@ -39,14 +48,14 @@
                                 <li class="list-group-item">Prezzo:{{ $apartment->price }}</li>
 
 
-                               
-                                    <label class="list-group-item form-switch">
-                                        Visibilità
-                                      
-                                        <input type="hidden" name="visibile" value="0">
-                                        <input class="switch-visibility form-check-input  float-end"  type="checkbox"  value="1" name="visibile"
-                                            {{ $apartment->visibile ? 'checked' : '' }}>
-                                    
+
+                                <label class="list-group-item form-switch">
+                                    Visibilità
+
+                                    <input type="hidden" name="visibile" value="0">
+                                    <input class="switch-visibility form-check-input  float-end" type="checkbox"
+                                        value="1" name="visibile" {{ $apartment->visibile ? 'checked' : '' }}>
+
 
 
 

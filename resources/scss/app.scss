@@ -26,6 +26,14 @@ $biancosporco: #F9F7F3;
     .background-image-profile{
         background-color: $turchese;
     }
+
+    .message-span{
+        top:15px;
+        right:15px;
+       
+        
+        
+    }
 }
 
 .my-btn-turchese{
@@ -38,8 +46,17 @@ $biancosporco: #F9F7F3;
 
 .my-btn-sabbia{
     background-color: $sabbia;
+    
     &:hover{
         border-color: $sabbia;
+    }
+}
+
+.my-btn-orange{
+    background-color: $orange;
+    color: white;
+    &:hover{
+        background-color: #b05b2d;
     }
 }
 
@@ -55,3 +72,4 @@ $biancosporco: #F9F7F3;
 .bg-turchese{
     background-color: $turchese;
 }
+
