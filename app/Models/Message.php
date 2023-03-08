@@ -9,6 +9,8 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $fillable = [ "name","email", "content", "apartment_id"];
+
     // un messaggio avrà come riferimento un solo appartamento
     public function apartment()
     {
