@@ -44,15 +44,32 @@ class ApartmentController extends Controller
         $data = $request->validated();
         $data = $request->all();
 
+    //   modifichiamo la stringa usando una funzione precompilata che sostituisce gli spazi vuoti con + 
+      $data["full_address"]=urlencode($data["full_address"]);
+      //otteniamo le informazioni usando la funzione get content che utilizza le api di tomtom 
+      $tomtomData=file_get_contents("https://api.tomtom.com/search/2/geocode/". $data['full_address'].".json?key=6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD");
+      //dal risultato della funzione get content trasforma la stringa in un array associativo
+      $tomtomData=json_decode($tomtomData,JSON_PRETTY_PRINT);
+      
+
+       
+
         if (key_exists("cover_img", $data)) {
             $path = Storage::put("apartment_images", $data["cover_img"]);
         }
 
+        //IMPORTANTE ABBIAMO DECISO DI USARE IL PRIMO RISULTATO DELLA LISTA E TRALASCIATO GLI ALTRI
+        //aggiorniamo il valore di full_address con il risultato ottenuto dalla chiamata al sito tomtom
+        $data["full_address"]=$tomtomData["results"][0]["address"]["freeformAddress"];
         $newApartment = Apartment::create([
             ...$data,
             'user_id' => Auth::user()->id,
-            'cover_img' => $path ?? "apartment_images/house_default.png"
+            'cover_img' => $path ?? "apartment_images/house_default.png",
+            //assegniamo lat e lon dall'array associativo ottenuto precedentemente accedendo ai vari campi
+            "latitude"=>$tomtomData["results"][0]["position"]["lat"],
+            "longitude"=>$tomtomData["results"][0]["position"]["lon"],
         ]);
+        
 
         if ($request->has('rules')) {
             $newApartment->rules()->attach($data['rules']);

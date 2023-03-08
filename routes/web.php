@@ -36,6 +36,7 @@ Route::middleware('auth')
         Route::get("/",[DashboardController::class,"home"])->name("dashboard");
         Route::resource("apartments",ApartmentController::class);
         Route::get("apartment/messages/{apartment}",[MessageController::class,"index"])->name("messages.index");
+        Route::delete("apartment/messages/{message}",[MessageController::class,"destroy"])->name("messages.delete");
         Route::get("apartment/sponsors/{apartment}",[SponsorController::class,"index"])->name("sponsors.index");
 
         Route::get("sponsor/{apartment}/{sponsor}",[ApartmentController::class,"addSponsor"])->name("sponsors.add");

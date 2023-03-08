@@ -23,6 +23,15 @@
                 <td>{{$message->name}}</td>
                 <td>{{$message->email}}</td>
                 <td>{{$message->content}}</td>
+                <td>
+                  <form method="POST" class="form" action="{{route("admin.messages.delete",$message->id)}}">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger">Cancella</button>
+
+                  </form>
+                 
+                </td>
             </tr>
             
             
@@ -31,5 +40,22 @@
       </table>
 
 </div>
+
+<script>
+  let form = document.querySelectorAll(".form");
+  form.forEach((formDelete) => {
+      formDelete.addEventListener("submit", function(e) {
+          e.preventDefault();
+          const conferma = confirm("Vuoi cancellare questo messaggio?");
+
+          if (conferma === true) {
+              formDelete.submit();
+          }
+
+
+      })
+
+  })
+</script>
 
 @endsection
