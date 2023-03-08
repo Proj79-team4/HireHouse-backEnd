@@ -27,7 +27,7 @@
                 </a>
 
                 <h5 class="fw-bold">I TUOI ANNUNCI:</h5>
-                <div class="row mt-5">
+                <div class="row mt-5 gap-4">
                     @foreach ($apartments as $apartment)
                         <div class="card p-0" style="width: 18rem;">
                             <img src="{{ asset('storage/' . $apartment->cover_img) }}" class="card-img-top" alt="...">
