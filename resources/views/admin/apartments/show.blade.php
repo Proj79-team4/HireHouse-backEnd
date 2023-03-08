@@ -74,10 +74,11 @@
                             </li>
                         @endforeach
                     </ul>
-
-
-
                 </div>
+                <div class="mt-5">
+                    <a href="{{route("admin.sponsors.index",$apartment->id)}}" class="btn my-btn-sabbia">Sponsorizza</a>
+               </div>
+
             </div>
 
         </div>

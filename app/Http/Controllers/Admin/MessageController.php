@@ -15,8 +15,10 @@ class MessageController extends Controller
      */
     public function index(Apartment $apartment)
     {
+        if($apartment->user_id!==Auth::id()){
+            abort(403,"Non sei autorizzato a visualizzare questi messaggi");
+        };
         $messages = $apartment->messages;
-
 
         return view("admin.messages.index",compact("messages"));
     }

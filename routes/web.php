@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,13 @@ Route::middleware('auth')
         Route::get("/",[DashboardController::class,"home"])->name("dashboard");
         Route::resource("apartments",ApartmentController::class);
         Route::get("apartment/messages/{apartment}",[MessageController::class,"index"])->name("messages.index");
+        Route::get("apartment/sponsors/{apartment}",[SponsorController::class,"index"])->name("sponsors.index");
 
+        Route::get("sponsor/{apartment}/{sponsor}",[ApartmentController::class,"addSponsor"])->name("sponsors.add");
+        
+    
+    
+    
     });
 
     

@@ -9,8 +9,10 @@ use App\Http\Requests\EditApartmentRequest;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Models\Rule;
 use App\Models\Service;
+use App\Models\Sponsor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ApartmentController extends Controller
 {
@@ -19,7 +21,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -142,5 +144,16 @@ class ApartmentController extends Controller
         $apartment->delete();
 
         return redirect()->route("admin.dashboard");
+    }
+
+    public function addSponsor(Apartment $apartment, Sponsor $sponsor){
+        // data di inzio
+        $currentDateTime = Carbon::now();
+        // data di fine, calcolata in base alla sponsorizzazione selezionata 
+        $newDateTime = Carbon::now()->addHour($sponsor->hours);
+        // creazione del record all'interno della tabella ponte 
+        $apartment->sponsors()->attach($sponsor->id,["start_date"=>$currentDateTime,"end_date"=>$newDateTime]);
+
+        return redirect()->route("admin.apartments.show", $apartment->id);
     }
 }
