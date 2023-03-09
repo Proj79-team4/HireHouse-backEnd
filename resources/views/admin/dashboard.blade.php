@@ -49,12 +49,10 @@
 
 
 
-                                <label class="list-group-item form-switch">
-                                    Visibilità
+                                <label class="list-group-item ">
+                                    {{$apartment->visibile ? "Visibilie" : "Non visibile"}}
 
-                                    <input type="hidden" name="visibile" value="0">
-                                    <input class="switch-visibility form-check-input  float-end" type="checkbox"
-                                        value="1" name="visibile" {{ $apartment->visibile ? 'checked' : '' }}>
+                                    
 
 
 
