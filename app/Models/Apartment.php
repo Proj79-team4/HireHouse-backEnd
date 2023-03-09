@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Apartment extends Model
 {
@@ -39,7 +40,7 @@ class Apartment extends Model
     // un appartamento può avere più sponsors
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot("start_date","end_date")->wherePivot("end_date",">",Carbon::now());
     }
 
      // un appartamento può avere più Rules
