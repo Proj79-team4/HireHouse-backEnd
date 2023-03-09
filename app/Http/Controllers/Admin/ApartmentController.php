@@ -21,7 +21,6 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -44,15 +43,15 @@ class ApartmentController extends Controller
         $data = $request->validated();
         $data = $request->all();
 
-    //   modifichiamo la stringa usando una funzione precompilata che sostituisce gli spazi vuoti con + 
-      $data["full_address"]=urlencode($data["full_address"]);
-      //otteniamo le informazioni usando la funzione get content che utilizza le api di tomtom 
-      $tomtomData=file_get_contents("https://api.tomtom.com/search/2/geocode/". $data['full_address'].".json?key=6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD");
-      //dal risultato della funzione get content trasforma la stringa in un array associativo
-      $tomtomData=json_decode($tomtomData,JSON_PRETTY_PRINT);
-      
+        //   modifichiamo la stringa usando una funzione precompilata che sostituisce gli spazi vuoti con + 
+        $data["full_address"] = urlencode($data["full_address"]);
+        //otteniamo le informazioni usando la funzione get content che utilizza le api di tomtom 
+        $tomtomData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $data['full_address'] . ".json?key=6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD");
+        //dal risultato della funzione get content trasforma la stringa in un array associativo
+        $tomtomData = json_decode($tomtomData, JSON_PRETTY_PRINT);
 
-       
+
+
 
         if (key_exists("cover_img", $data)) {
             $path = Storage::put("apartment_images", $data["cover_img"]);
@@ -60,16 +59,16 @@ class ApartmentController extends Controller
 
         //IMPORTANTE ABBIAMO DECISO DI USARE IL PRIMO RISULTATO DELLA LISTA E TRALASCIATO GLI ALTRI
         //aggiorniamo il valore di full_address con il risultato ottenuto dalla chiamata al sito tomtom
-        $data["full_address"]=$tomtomData["results"][0]["address"]["freeformAddress"];
+        $data["full_address"] = $tomtomData["results"][0]["address"]["freeformAddress"];
         $newApartment = Apartment::create([
             ...$data,
             'user_id' => Auth::user()->id,
             'cover_img' => $path ?? "apartment_images/house_default.png",
             //assegniamo lat e lon dall'array associativo ottenuto precedentemente accedendo ai vari campi
-            "latitude"=>$tomtomData["results"][0]["position"]["lat"],
-            "longitude"=>$tomtomData["results"][0]["position"]["lon"],
+            "latitude" => $tomtomData["results"][0]["position"]["lat"],
+            "longitude" => $tomtomData["results"][0]["position"]["lon"],
         ]);
-        
+
 
         if ($request->has('rules')) {
             $newApartment->rules()->attach($data['rules']);
@@ -98,15 +97,15 @@ class ApartmentController extends Controller
 
     {
         //controlliamo che l'utente loggato abbia la possibilita di modificare l'appartamento facendo un check con l'id
-        if($apartment->user_id!==Auth::id()){
-            abort(403,"Non sei autorizzato a modificare questo appartamento");
+        if ($apartment->user_id !== Auth::id()) {
+            abort(403, "Non sei autorizzato a modificare questo appartamento");
         };
-        
+
         $apartment->load("rules", "services");
         $rules = Rule::all();
         $services = Service::all();
 
-        return view("admin.apartments.edit", compact("apartment","rules", "services"));
+        return view("admin.apartments.edit", compact("apartment", "rules", "services"));
     }
 
     /**
@@ -114,35 +113,51 @@ class ApartmentController extends Controller
      */
     public function update(EditApartmentRequest $request, Apartment $apartment)
     {
-        
+
         $data = $request->validated();
         $data = $request->all();
-        if(key_exists("rules",$data)){
-            $apartment->rules()->sync($data['rules']);
 
-        }
-        else{
+
+        //   modifichiamo la stringa usando una funzione precompilata che sostituisce gli spazi vuoti con + 
+        $data["full_address"] = urlencode($data["full_address"]);
+        //otteniamo le informazioni usando la funzione get content che utilizza le api di tomtom 
+        $tomtomData = file_get_contents("https://api.tomtom.com/search/2/geocode/" . $data['full_address'] . ".json?key=6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD");
+        //dal risultato della funzione get content trasforma la stringa in un array associativo
+        $tomtomData = json_decode($tomtomData, JSON_PRETTY_PRINT);
+
+        //IMPORTANTE ABBIAMO DECISO DI USARE IL PRIMO RISULTATO DELLA LISTA E TRALASCIATO GLI ALTRI
+        //aggiorniamo il valore di full_address con il risultato ottenuto dalla chiamata al sito tomtom
+        $data["full_address"] = $tomtomData["results"][0]["address"]["freeformAddress"];
+
+        if (key_exists("rules", $data)) {
+            $apartment->rules()->sync($data['rules']);
+        } else {
             $apartment->rules()->sync([]);
         }
-        if(key_exists("services",$data)){
-           
+        if (key_exists("services", $data)) {
+
             $apartment->services()->sync($data['services']);
-        }
-        else{
+        } else {
             $apartment->services()->sync([]);
         }
         if (key_exists("cover_img", $data)) {
             $path = Storage::put("apartment_images", $data["cover_img"]);
-            if(!$apartment->cover_img==="apartment_images/house_default.png"){
+            if (!$apartment->cover_img === "apartment_images/house_default.png") {
                 Storage::delete($apartment->cover_img);
             }
-            
         }
 
-        $apartment->fill($data);
+        $apartment->fill([
+            ...$data,
+            'user_id' => Auth::user()->id,
+            'cover_img' => $path ?? "apartment_images/house_default.png",
+            //assegniamo lat e lon dall'array associativo ottenuto precedentemente accedendo ai vari campi
+            "latitude" => $tomtomData["results"][0]["position"]["lat"],
+            "longitude" => $tomtomData["results"][0]["position"]["lon"],
+
+        ]);
         if (key_exists("cover_img", $data)) {
             $apartment->cover_img = $path;
-            
         }
         $apartment->save();
         return redirect()->route("admin.apartments.show", $apartment->id);
@@ -153,7 +168,7 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        if(!$apartment->cover_img==="apartment_images/house_default.png"){
+        if (!$apartment->cover_img === "apartment_images/house_default.png") {
             Storage::delete($apartment->cover_img);
         }
         $apartment->rules()->detach();
@@ -163,13 +178,14 @@ class ApartmentController extends Controller
         return redirect()->route("admin.dashboard");
     }
 
-    public function addSponsor(Apartment $apartment, Sponsor $sponsor){
+    public function addSponsor(Apartment $apartment, Sponsor $sponsor)
+    {
         // data di inzio
         $currentDateTime = Carbon::now();
         // data di fine, calcolata in base alla sponsorizzazione selezionata 
         $newDateTime = Carbon::now()->addHour($sponsor->hours);
         // creazione del record all'interno della tabella ponte 
-        $apartment->sponsors()->attach($sponsor->id,["start_date"=>$currentDateTime,"end_date"=>$newDateTime]);
+        $apartment->sponsors()->attach($sponsor->id, ["start_date" => $currentDateTime, "end_date" => $newDateTime]);
 
         return redirect()->route("admin.apartments.show", $apartment->id);
     }
