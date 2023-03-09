@@ -150,7 +150,6 @@ class ApartmentController extends Controller
         $apartment->fill([
             ...$data,
             'user_id' => Auth::user()->id,
-            'cover_img' => $path ?? "apartment_images/house_default.png",
             //assegniamo lat e lon dall'array associativo ottenuto precedentemente accedendo ai vari campi
             "latitude" => $tomtomData["results"][0]["position"]["lat"],
             "longitude" => $tomtomData["results"][0]["position"]["lon"],
