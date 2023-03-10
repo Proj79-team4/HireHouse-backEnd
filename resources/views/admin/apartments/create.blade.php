@@ -258,7 +258,7 @@
         </div>
 
         <div class="col-12">
-            <button class="btn btn-primary">Sign in</button>
+            <button class="btn btn-primary">Pubblica</button>
         </div>
 
     </form>
