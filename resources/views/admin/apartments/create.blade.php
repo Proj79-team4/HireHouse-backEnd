@@ -55,7 +55,7 @@
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Indirizzo*</label>
                 <input type="text" class="form-control @error('full_address') is-invalid @enderror" id="inputAddress"
-                    placeholder="1234 Main St" name="full_address" required>
+                    placeholder="via Roma 127 Roma" name="full_address" required>
                 <div class="invalid-feedback">
                     Il campo è obbligatorio
                 </div>
@@ -266,10 +266,27 @@
 
     </div>
 
-    <script>
+   
+       
+        
+<script>
+        
         const forms = document.querySelectorAll('.needs-validation')
-        let erroreMess=document.querySelector("#errorServices")
-        let textServ=document.querySelector("#textServices")
+        const erroreMess=document.querySelector("#errorServices")
+        const textServ=document.querySelector("#textServices")
+        const addressInput=document.querySelector("#inputAddress")
+        let suggestedAddress=[];
+
+        addressInput.addEventListener("input",function(){
+            axios.get(`https://api.tomtom.com/search/2/geocode/${addressInput.value}.json?key=6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD`)
+            .then(function(response){
+                suggestedAddress=response.results
+                console.log(suggestedAddress)
+
+            })
+        })
+    
+        
 
 
 
@@ -295,6 +312,8 @@
 
                 form.classList.add('was-validated')
             }, false)
+
         })
+
     </script>
 @endsection
