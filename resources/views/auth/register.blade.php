@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" >
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="form-register">
                         @csrf
 
                         <div class="mb-4 row">
@@ -65,7 +65,7 @@
 
                         <div class="mb-4 row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address')
-                                }}</label>
+                                }}*</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -81,12 +81,15 @@
 
                         <div class="mb-4 row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password')
-                                }}</label>
+                                }}*</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    class=" form-control @error('password') is-invalid @enderror" name="password"
                                     required autocomplete="new-password" minlength="8">
+                                    <div class="invalid-feedback">
+                                        le password non sono uguali
+                                      </div>
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -98,11 +101,14 @@
 
                         <div class="mb-4 row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm
-                                Password') }}</label>
+                                Password') }}*</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" required autocomplete="new-password">
+                                    <div class="invalid-feedback">
+                                        le password non sono uguali
+                                      </div>
                             </div>
                         </div>
 
@@ -138,4 +144,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    let passwordInput=document.querySelector("#password");
+    let confirmPasswordInput=document.querySelector("#password-confirm");
+    let formRegister=document.querySelector("#form-register");
+    console.log(passwordInput,confirmPasswordInput,formRegister)
+    formRegister.addEventListener("submit",function(e){
+        e.preventDefault();
+        if(passwordInput.value===confirmPasswordInput.value){
+            formRegister.submit();
+        }else{
+            passwordInput.classList.add("is-invalid");
+            confirmPasswordInput.classList.add("is-invalid");
+
+
+        }
+
+    })
+</script>
 @endsection
