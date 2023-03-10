@@ -10,7 +10,7 @@
 
             {{-- Titolo --}}
             <div class="col-md-6">
-                <label for="inputTitle" class="form-label ">Nome Immobile</label>
+                <label for="inputTitle" class="form-label ">Nome Immobile*</label>
                 <input type="text" class="form-control @error(' title') is-invalid @enderror" id="inputTitle"
                     name="title" value="{{ old('title') ? old('title') : $apartment->title }}" required minlength="8">
 
@@ -38,7 +38,7 @@
 
             {{-- Prezzo --}}
             <div class="col-md-3">
-                <label for="inputPrice" class="form-label">Prezzo</label>
+                <label for="inputPrice" class="form-label">Prezzo*</label>
                 <input type="number" class="form-control @error(' price') is-invalid @enderror" id="inputPrice"
                     name="price" value="{{ old('price') ? old('price') : $apartment->price }}"  required step=".01">
                     <div class="invalid-feedback">
@@ -53,7 +53,7 @@
 
             {{-- Indirizzo --}}
             <div class="col-12">
-                <label for="inputAddress" class="form-label">Indirizzo</label>
+                <label for="inputAddress" class="form-label">Indirizzo*</label>
                 <input type="text" class="form-control @error(' full_address') is-invalid @enderror" id="inputAddress"
                     placeholder="1234 Main St" name="full_address"
                     value="{{ old('full_address') ? old('full_address') : $apartment->full_address }}" required>
@@ -235,7 +235,7 @@
                         <h2 class="accordion-header" id="headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Servizi
+                                <span id="textServices"> Servizi*</span> <span class="d-none text-danger" id="errorServices">Seleziona almeno un servizio</span>
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -244,14 +244,14 @@
                                 @foreach ($services as $service)
                                     <div class="form-check form-check @error('services') is-invalid @enderror">
 
-                                        <input class="form-check-input @error('services') is-invalid @enderror"
-                                            type="checkbox" id="tagCheckbox2_{{ $loop->index }}"
+                                        <input class="form-check-input servicesCheck @error('services') is-invalid @enderror"
+                                            type="checkbox" id="servicesCheckbox_{{ $loop->index }}"
                                             value="{{ $service->id }}" name="services[]"
                                             {{ in_array($service->id, $apartment->services()->get()->pluck('id')->toArray()) ? 'checked' : '' }}>
 
                                         <i class="fa-solid {{ $service->icon }}"></i>
                                         <label class="form-check-label"
-                                            for="tagCheckbox2_{{ $loop->index }}">{{ $service->name }}</label>
+                                        for="servicesCheckbox_{{ $loop->index }}">{{ $service->name }}</label>
                                     </div>
                                 @endforeach
                             </div>
@@ -271,6 +271,8 @@
     </div>
     <script>
         const forms = document.querySelectorAll('.needs-validation')
+        let erroreMess=document.querySelector("#errorServices")
+        let textServ=document.querySelector("#textServices")
     
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
@@ -279,6 +281,18 @@
           event.preventDefault()
           event.stopPropagation()
         }
+        let servicesList = [];
+                Array.from(document.querySelectorAll(".servicesCheck")).forEach(function(inp) {
+                    if (inp.checked === true) {
+                        servicesList.push(inp)
+                    }
+                });
+                if(servicesList.length===0){
+                    event.preventDefault()
+                    event.stopPropagation()
+                    erroreMess.classList.remove("d-none")
+                    textServ.classList.add("d-none")
+                }
     
         form.classList.add('was-validated')
       }, false)})
