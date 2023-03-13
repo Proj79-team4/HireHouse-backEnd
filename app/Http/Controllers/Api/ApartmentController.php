@@ -104,4 +104,22 @@ class ApartmentController extends Controller
 
         return response()->json($apartments);
     }
+
+    public function index(){
+        $sponsored = Apartment::whereHas('sponsors')->with("sponsors")->get()->pluck("id")->toArray() ;
+        $apartment = Apartment::query();
+        $apartments=$apartment->orderByRaw('FIELD (id, ' . implode(', ', $sponsored) . ') DESC')->get()->toArray();
+        $apartmentNoSponsor=Apartment::doesntHave('sponsors')->with("rules","services")->get()->toArray();
+        $fullList=array_merge($apartments,$apartmentNoSponsor);
+
+          
+
+        
+
+        return response()->json($fullList);
+    }
+    public function show(Apartment $apartment){
+        $apartment->load("services","rules","user");
+        return response()->json($apartment);
+    }
 }
