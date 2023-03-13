@@ -80,6 +80,10 @@ class ApartmentController extends Controller
         if (!is_null($request->square_meters)) {
             $apartments->where("square_meters", ">=", "{$request->square_meters}");
         }
+        if (!is_null($request->price)) {
+            $apartments->where("price", "<=", "{$request->price}");
+        }
+        $apartments->where("visibile","=",true);
         // if(!is_null($request->services)){
         //     $apartments->where("services","=",)
 
