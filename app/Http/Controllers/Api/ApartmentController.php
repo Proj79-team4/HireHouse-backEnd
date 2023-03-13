@@ -29,6 +29,8 @@ class ApartmentController extends Controller
 
     public function researchApartment(Request $request)
     {
+
+        
         $data = $request->all();
         //lat e long del punto rihiesto dall'utente
         $lat = $data["lat"];
@@ -78,7 +80,24 @@ class ApartmentController extends Controller
         if (!is_null($request->square_meters)) {
             $apartments->where("square_meters", ">=", "{$request->square_meters}");
         }
-        $apartments = $apartments->get();
+        // if(!is_null($request->services)){
+        //     $apartments->where("services","=",)
+
+        // }
+        
+        //filtro per i servizi
+        $apartments = $apartments->with("services");
+        if($request->has('services') && count($request['services']) > 0) {
+            $services = $request['services'];
+
+            $apartments = $apartments->whereHas('services', function($q) use ($services)
+            {
+                $q->whereIn('service_id', $services);
+            }, '=', count($services));
+        }
+
+       $apartments= $apartments->get();
+
         return response()->json($apartments);
     }
 }
