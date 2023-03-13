@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class ApartmentController extends Controller
 {
@@ -30,8 +30,36 @@ class ApartmentController extends Controller
     public function researchApartment(Request $request)
     {
         $data = $request->all();
+        //lat e long del punto rihiesto dall'utente
+        $lat = $data["lat"];
+        $lng = $data["lng"];
+        //distanza esperessa in km
+        $distance=$data["dist"];
+
+        
+        // query scritta in mysql per trovare gli appartamenti dato un punto esperesso in lat e lon e una distanza e ordinati in ordine asc per distanza
+        // $query = "SELECT *, ( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093)
+        //  AS `distance`  
+        //  FROM `apartments` 
+        //  WHERE ( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093) <= $distance 
+        //  ORDER BY distance ASC  ";
+
+        // $locations = DB::select($query);
+        
+       
+
+
 
         $apartments = Apartment::query();
+        $apartments->select("*",DB::raw(" ( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093)
+        AS `distance`"))
+        ->whereRaw("( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093) <= $distance")
+        ->orderByRaw("distance ASC");
+
+
+        
+        
+       
         if (!is_null($request->title)) {
             $apartments->where("title", "LIKE", "%{$request->title}%");
         }
