@@ -1,4 +1,10 @@
 @use '@fortawesome/fontawesome-free/css/all.min.css';
+
+@import url(https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css);
+@import url(https://api.tomtom.com/maps-sdk-for-web/6.x/6.23.0//examples/pages/examples/assets/ui-library/index.css);
+@import url(https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox.css);
+@import url(https://api.tomtom.com/maps-sdk-for-web/6.x/6.23.0//examples/pages/examples/assets/ui-library/icons-css/poi.css);
+
 @import '~bootstrap/scss/bootstrap';
 
 $turchese: #0FA3B1;
@@ -75,4 +81,3 @@ $biancosporco: #F9F7F3;
 .wwas-not-validated{
     background-color: red;
 }
-
