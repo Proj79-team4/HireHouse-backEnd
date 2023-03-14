@@ -45,7 +45,7 @@
                                 <p class="card-text">{{ $apartment->description }}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Prezzo:{{ $apartment->price }}</li>
+                                <li class="list-group-item">Prezzo: {{ $apartment->price }} €</li>
 
 
 
@@ -78,10 +78,10 @@
             {{-- Informazioni utente --}}
             <div class="col-4">
 
-                <div>
+                <div class="container-account-card mt-3">
                     <div class="row d-flex align-items-center h-100">
                         <div class="col col-md-9 col-lg-7 col-xl-5">
-                            <div class="card background-image-profile" style="border-radius: 15px;">
+                            <div class="card background-image-profile " style="border-radius: 15px;">
                                 <div class="card-body p-4">
                                     <div class="d-flex text-black">
                                         <div class="flex-shrink-0">

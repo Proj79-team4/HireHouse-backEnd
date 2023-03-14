@@ -172,6 +172,7 @@ class ApartmentController extends Controller
         }
         $apartment->rules()->detach();
         $apartment->services()->detach();
+        $apartment->sponsors()->detach();
         $apartment->delete();
 
         return redirect()->route("admin.dashboard");
