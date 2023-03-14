@@ -53,9 +53,11 @@ class ApartmentController extends Controller
 
 
         $apartments = Apartment::query();
-        $apartments->select("*",DB::raw(" ( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093)
+        $apartments->select("*",DB::raw(" ( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") )
+         + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093)
         AS `distance`"))
-        ->whereRaw("( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") ) * sin( radians( Latitude ) ) ) )*(1.6093) <= $distance")
+        ->whereRaw("( 3959 * acos ( cos ( radians(" . $lat . ") ) * cos( radians( Latitude ) ) * cos( radians( Longitude ) - radians(" .  $lng . ") ) + sin ( radians(" . $lat . ") )
+         * sin( radians( Latitude ) ) ) )*(1.6093) <= $distance")
         ->orderByRaw("distance ASC");
 
 
