@@ -103,22 +103,37 @@ class ApartmentController extends Controller
         }
 
        $apartments= $apartments->get();
+       $apartmentSponsored=[];
+       $apartmentNoSponsored=[];
+       foreach($apartments as $apartment){
+        if(! $apartment->sponsors->isEmpty() ){
+            $apartmentSponsored[]=$apartment;
+        }
+        else{
+            $apartmentNoSponsored[]=$apartment;
 
-        return response()->json($apartments);
+        }
+       }
+       $apartmentsOutput=array_merge($apartmentSponsored,$apartmentNoSponsored);
+       
+
+
+        return response()->json($apartmentsOutput);
     }
 
     public function index(){
         $sponsored = Apartment::whereHas('sponsors')->with("sponsors", "services" ,"rules")->get()->pluck("id")->toArray() ;
         $apartment = Apartment::query();
-        $apartments=$apartment->orderByRaw('FIELD (id, ' . implode(', ', $sponsored) . ') DESC')->with("sponsors", "services" ,"rules")->get()->toArray();
-        $apartmentNoSponsor=Apartment::doesntHave('sponsors')->with("rules","services")->get()->toArray();
-        $fullList=array_merge($apartments,$apartmentNoSponsor);
 
+        $apartments=$apartment->orderByRaw('FIELD (id, ' . implode(', ', $sponsored) . ') DESC')->with("rules","services")->get()->toArray();        
+
+      
           
+
 
         
 
-        return response()->json($fullList);
+        return response()->json($apartments);
     }
     public function show(Apartment $apartment){
         $apartment->load("services","rules","user");

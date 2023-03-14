@@ -136,7 +136,7 @@
             <label for="inputBathrooms" class="form-label">Numero bagni</label>
             <input type="number" class="form-control @error(' num_bathrooms') is-invalid @enderror" id="inputBathrooms"
                 min="0" name="num_bathrooms"
-                value="{{ old('num_bathrooms') ? old('num_bathrooms') : $apartment->num_bathrooms }} " required>
+                value="{{ old('num_bathrooms') ? old('num_bathrooms') : $apartment->num_bathrooms }}" required>
 
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
@@ -152,7 +152,7 @@
         <div class="col-md-3">
             <label for="inputBeds" class="form-label">Numero letti</label>
             <input type="number" class="form-control @error(' num_beds') is-invalid @enderror" id="inputBeds" min="0"
-                name="num_beds" value="{{ old('num_beds') ? old('num_beds') : $apartment->num_beds }} " required>
+                name="num_beds" value="{{ old('num_beds') ? old('num_beds') : $apartment->num_beds }}" required>
 
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
