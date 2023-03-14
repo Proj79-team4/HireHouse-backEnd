@@ -53,7 +53,13 @@
 
         {{-- Indirizzo --}}
         <div class="col-12 mb-3">
-            <label for="full_address" class="form-label">Indirizzo completo*</label>
+            <div class="d-flex">
+                <label for="full_address" class="form-label flex-basis20">Indirizzo completo*</label>
+                <div class="invalid-feedback mb-2" id="errorAddres">
+                    Il campo è obbligatorio
+                </div>
+
+            </div>
             @error('full_address')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -83,7 +89,10 @@
             <div class="form-floating">
                 <textarea class="form-control @error('description') is-invalid @enderror"
                     placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
-                    name="description"></textarea>
+                    name="description" required></textarea>
+                    <div class="invalid-feedback">
+                        Campo richiesto
+                    </div>
 
                 <label for="floatingTextarea2">Descrizione</label>
 
@@ -100,7 +109,7 @@
         <div class="col-md-3">
             <label for="inputRomms" class="form-label">Numero stanze</label>
             <input type="number" class="form-control @error('num_rooms') is-invalid @enderror" id="inputRooms"
-                name="num_rooms" min="0">
+                name="num_rooms" min="0" required>
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
             </div>
@@ -116,7 +125,7 @@
         <div class="col-md-3">
             <label for="inputBathrooms" class="form-label">Numero bagni</label>
             <input type="number" class="form-control @error('num_bathrooms') is-invalid @enderror" id="inputBathrooms"
-                name="num_bathrooms" min="0">
+                name="num_bathrooms" min="0" required>
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
             </div>
@@ -132,7 +141,7 @@
         <div class="col-md-3">
             <label for="inputBeds" class="form-label">Numero letti</label>
             <input type="number" class="form-control @error('num_beds') is-invalid @enderror" id="inputBeds"
-                name="num_beds" min="0">
+                name="num_beds" min="0" required>
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
             </div>
@@ -148,7 +157,7 @@
         <div class="col-md-3">
             <label for="inputSquareMeters" class="form-label">Metri quadri</label>
             <input type="number" class="form-control @error('square_meters') is-invalid @enderror"
-                id="inputSquareMeters" name="square_meters" min="0">
+                id="inputSquareMeters" name="square_meters" min="0" required>
             <div class="invalid-feedback">
                 Il numero deve essere maggiore di 0
             </div>
@@ -164,7 +173,7 @@
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-in</label>
             <input type="time" class="form-control @error('check_in') is-invalid @enderror" id="inputPassword4"
-                placeholder="10:00" name="check_in">
+                placeholder="10:00" name="check_in" required>
 
             @error('check_in')
             <span class="invalid-feedback" role="alert">
@@ -177,7 +186,7 @@
         <div class="col-md-3">
             <label for="inputPassword4" class="form-label">Check-out</label>
             <input type="time" class="form-control @error('check_out') is-invalid @enderror" id="inputPassword4"
-                placeholder="18:00" name="check_out">
+                placeholder="18:00" name="check_out" required>
 
             @error('check_out')
             <span class="invalid-feedback" role="alert">
@@ -539,6 +548,11 @@
 
 
     const address = document.querySelector('.tt-search-box-input');
+    const errorAddressHTML=document.querySelector("#errorAddres");
+    
+    
+    address.setAttribute("required","");
+    
     address.setAttribute('id', 'full_address');
     address.setAttribute('name', 'full_address');
 
@@ -568,6 +582,17 @@
             event.stopPropagation()
             erroreMess.classList.remove("d-none")
             textServ.classList.add("d-none")
+            }
+            if(address.value ==""){
+                event.preventDefault()
+            event.stopPropagation()
+            errorAddressHTML.classList.add("d-block")
+            
+            address.classList.add("is-invalid");
+            console.log("non hai inserito indirizzo")
+            erroreMess.classList.remove("d-none")
+            textServ.classList.add("d-none")
+
             }
             
             form.classList.add('was-validated')
