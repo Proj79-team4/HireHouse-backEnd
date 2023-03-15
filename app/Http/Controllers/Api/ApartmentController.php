@@ -125,7 +125,11 @@ class ApartmentController extends Controller
         $sponsored = Apartment::whereHas('sponsors')->with("sponsors", "services" ,"rules")->get()->pluck("id")->toArray() ;
         $apartment = Apartment::query();
 
-        $apartments=$apartment->orderByRaw('FIELD (id, ' . implode(', ', $sponsored) . ') DESC')->with("rules","services","sponsors")->get()->toArray();        
+        if($sponsored!==[]){
+            $apartments=$apartment->orderByRaw('FIELD (id, ' . implode(', ', $sponsored) . ') DESC')->with("rules","services","sponsors")->get()->toArray();        
+        }else{
+            $apartments=$apartment->with("rules","services","sponsors")->get()->toArray();
+        }
 
       
           
