@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,4 @@ Route::get('apartments/research', [ApartmentController::class, 'researchApartmen
 Route::get('apartments/index', [ApartmentController::class, 'index']);
 Route::get('apartments/show/{apartment}', [ApartmentController::class, 'show']);
 Route::get("services/index",[ServiceController::class,"index"]);
+Route::post("message/create",[MessageController::class,"store"]);

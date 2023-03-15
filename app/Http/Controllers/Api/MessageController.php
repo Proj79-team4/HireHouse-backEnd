@@ -13,7 +13,7 @@ class MessageController extends Controller
             "name"=>"required|string|max:255",
             "email"=>"required|email|max:255",
             "content"=>"required|string|max:1000",
-            "apartment_id"=>"required|number"
+            "apartment_id"=>"required|string"
         ]);
 
         $newMessage = Message::create($data);
