@@ -32,6 +32,21 @@ class ApartmentController extends Controller
 
         
         $data = $request->all();
+        if (is_null($request->lat ) && is_null($request->lng ) ) {
+            $apartmentslist = Apartment::with('sponsors')->get();
+        $apartmentFilteredList = [];
+
+        foreach ($apartmentslist as $apartment) {
+            if (($apartment->toArray()["sponsors"] !== [])) {
+                $apartmentFilteredList[] = $apartment;
+            }
+        }
+
+        return response()->json($apartmentFilteredList);
+            
+            
+        }
+
         //lat e long del punto rihiesto dall'utente
         $lat = $data["lat"];
         $lng = $data["lng"];
