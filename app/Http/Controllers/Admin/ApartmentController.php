@@ -179,15 +179,15 @@ class ApartmentController extends Controller
         return redirect()->route("admin.dashboard");
     }
 
-    public function addSponsor(Apartment $apartment, Sponsor $sponsor)
-    {
-        // data di inzio
-        $currentDateTime = Carbon::now();
-        // data di fine, calcolata in base alla sponsorizzazione selezionata 
-        $newDateTime = Carbon::now()->addHour($sponsor->hours);
-        // creazione del record all'interno della tabella ponte 
-        $apartment->sponsors()->attach($sponsor->id, ["start_date" => $currentDateTime, "end_date" => $newDateTime]);
+    // public function addSponsor(Apartment $apartment, Sponsor $sponsor)
+    // {
+    //     // data di inzio
+    //     $currentDateTime = Carbon::now();
+    //     // data di fine, calcolata in base alla sponsorizzazione selezionata 
+    //     $newDateTime = Carbon::now()->addHour($sponsor->hours);
+    //     // creazione del record all'interno della tabella ponte 
+    //     $apartment->sponsors()->attach($sponsor->id, ["start_date" => $currentDateTime, "end_date" => $newDateTime]);
 
-        return redirect()->route("admin.apartments.show", $apartment->id);
-    }
+    //     return redirect()->route("admin.apartments.show", $apartment->id);
+    // }
 }

@@ -23,8 +23,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/payment/process', [PaymentController::class,"process"])->name('payment.process');
-Route::get('/payment', [PaymentController::class,"show"])->name('payment.show');
+// Rotta pagamento effettivo (API) 
+Route::post('/payment/process', [PaymentController::class,"process"])->name('payment.process');
+
+// View per inserimento dati carta
+Route::get('/payment/{sponsor}/{apartment}', [PaymentController::class,"show"])->name('payment.show');
 
 
 Route::middleware('auth')->group(function () {

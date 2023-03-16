@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text">Scegli questa sponsorizzazione per una durata di: <strong>{{$sponsor->hours}} ore</strong> </p>
-                        <a href="{{route('payment.show')}}" class="btn my-btn-orange">{{$sponsor->price}} €</a>
+                        <a href="{{route('payment.show', [$sponsor->id, $apartment->id])}}" class="btn my-btn-orange">{{$sponsor->price}} €</a>
                     </div>
                 </div>
 
