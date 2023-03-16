@@ -316,26 +316,26 @@
 </script>
 
 <script>
-    tt.setProductInfo('Codepen Examples', '${analytics.productVersion}');
     var map = tt.map({
         key: '6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD',
         container: 'map',
-        center: [41.9027835, 12.4963655],
-        zoom: 2,
-        dragPan: !window.isMobileOrTablet()
+        center: [ 12.4963655, 41.9027835],
+        zoom: 6,
+        language: 'it-IT'
+      
     });
     var infoHint = new InfoHint('info', 'bottom-center', 5000).addTo(document.getElementById('map'));
     var errorHint = new InfoHint('error', 'bottom-center', 5000).addTo(document.getElementById('map'));
     // Options for the fuzzySearch service
     var searchOptions = {
         key: '6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD',
-        language: 'en-GB',
-        limit: 5
+        language:'it-IT',
+        limit: 8
     };
     // Options for the autocomplete service
     var autocompleteOptions = {
         key: '6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD',
-        language: 'en-GB'
+        language: 'it-IT'
     };
     var searchBoxOptions = {
         minNumberOfCharacters: 0,
