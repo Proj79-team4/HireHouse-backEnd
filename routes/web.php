@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ApartmentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\SponsorController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/payment/process', [PaymentController::class,"process"])->name('payment.process');
+Route::get('/payment', [PaymentController::class,"show"])->name('payment.show');
 
 
 Route::middleware('auth')->group(function () {
