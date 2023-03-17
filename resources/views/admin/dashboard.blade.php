@@ -18,9 +18,9 @@
 @section('content')
     <div class="container user-dashboard py-3">
 
-        <div class="row mt-5">
+        <div class="row mt-5 flex-column-reverse flex-lg-row">
             {{-- Lista appartamenti --}}
-            <div class="col-8">
+            <div class="col-lg-8 col-12">
 
                 <a href="{{ route('admin.apartments.create') }}" class="btn my-btn-turchese mb-5">
                     <i class="fa-solid fa-plus"></i> Crea
@@ -29,8 +29,13 @@
                 <h5 class="fw-bold">I TUOI ANNUNCI:</h5>
                 <div class="row mt-5 gap-4">
                     @foreach ($apartments as $apartment)
-                        <div class="card p-0 positision-relative" style="width: 18rem;">
-                            <img src="{{ asset('storage/' . $apartment->cover_img) }}" class="card-img-top" alt="...">
+                    <div class="col-12 col-sm-5">
+
+                        <div class="card p-0 positision-relative h-100"  >
+                            <div class="h-50">
+                                <img src="{{ asset('storage/' . $apartment->cover_img) }}" class=" w-100 h-100 " alt="...">
+
+                            </div>
 
                             <a href="{{route("admin.messages.index",$apartment->id)}}" class="btn my-btn-orange position-absolute message-span">
                                 <i class="fa-regular fa-envelope"></i>
@@ -72,19 +77,20 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
             {{-- Informazioni utente --}}
-            <div class="col-4">
+            <div class="col-md-4 col-12">
 
-                <div class="container-account-card mt-3">
+                <div class="container-account-card my-3">
                     <div class="row d-flex align-items-center h-100">
                         <div class="col col-md-9 col-lg-7 col-xl-5">
                             <div class="card background-image-profile " style="border-radius: 15px;">
                                 <div class="card-body p-4">
                                     <div class="d-flex text-black">
-                                        <div class="flex-shrink-0">
+                                        <div class="flex-shrink-0 d-none d-sm-block">
                                             <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
                                                 alt="Generic placeholder image" class="img-fluid"
                                                 style="width: 180px; border-radius: 10px;">

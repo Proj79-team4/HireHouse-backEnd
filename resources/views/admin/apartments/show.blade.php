@@ -4,7 +4,7 @@
 <div class="container py-3 apartment-show">
     <h1>{{ $apartment->title }}</h1>
     <div class="d-flex  align-items-center justify-content-between">
-        <div class="d-flex gap-3 align-items-center">
+        <div class="d-flex-column d-sm-flex gap-3 align-items-center">
             <button type="button" class="btn bg-azzurro">
                 Visualizzazioni <span class="badge bg-turchese ms-2">{{ $apartment->views->count() }}</span>
             </button>
@@ -27,8 +27,8 @@
         </div>
 
     </div>
-    <div class="py-3 thumb-img-container ">
-        <img src="{{ asset('storage/' . $apartment->cover_img) }}" alt="">
+    <div class="py-3 ">
+        <img src="{{ asset('storage/' . $apartment->cover_img) }}" class="img-fluid" alt="">
 
     </div>
     <div>
@@ -36,7 +36,7 @@
         <h5>Descrizione</h5>
         <p>{{ $apartment->description }}</p>
         <div class="row py-3">
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <h5>Informazioni</h5>
                 <ul class="list-group">
                     <li class="list-group-item">Numero di bagni: <span class="">{{ $apartment->num_bathrooms }}</span>
@@ -53,7 +53,7 @@
                 </ul>
 
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <h5>Regole</h5>
 
                 <ul class="list-group">
@@ -70,7 +70,7 @@
 
 
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <h5>Servizi</h5>
 
                 <ul class="list-group">
@@ -85,7 +85,7 @@
                 </ul>
             </div>
 
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <h5>Sponsorizzazione</h5>
 
                 <ul class="list-group">

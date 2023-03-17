@@ -32,7 +32,7 @@
 <body>
     <div id="app">
         
-        <nav class="navbar navbar-expand-md z-index5 navbar-light bg-white shadow-sm position-sticky top-0 ">
+        <nav class="navbar navbar-expand-md z-index2000 navbar-light bg-white shadow-sm position-sticky top-0 ">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel ">
