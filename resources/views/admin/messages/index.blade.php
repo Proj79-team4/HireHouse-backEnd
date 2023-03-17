@@ -12,6 +12,7 @@
             <th scope="col">Nome</th>
             <th scope="col">Email</th>
             <th scope="col">Contenuto</th>
+            <th scope="col">Inviato il</th>
             
           </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td>{{$message->name}}</td>
                 <td>{{$message->email}}</td>
                 <td>{{$message->content}}</td>
+                <td>{{date("d/m/Y",strtotime($message->created_at))}}</td> ;
                 <td>
                   <form method="POST" class="form" action="{{route("admin.messages.delete",$message->id)}}">
                     @csrf

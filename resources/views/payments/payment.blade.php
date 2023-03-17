@@ -1,39 +1,36 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Braintree-Demo</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-  <script src="https://js.braintreegateway.com/web/dropin/1.31.1/js/dropin.min.js"></script>
-  @vite(['resources/js/app.js'])
-
-</head>
-
-<body>
-  <div class="container-payment-maxwidth">
-    <div class="container-payment-empty">
-
-    </div>
-    <div class="container-payment-form">
-      <h2> Insersci un metodo di pagamento </h2>
-      <div id="dropin-container">
-
-      </div>
-      <button type="button" class="btn btn-success" id="submit-button"> Conferma e attiva la promo </button>
-      <form name="form" action="{{route('payment.process')}}" method="post">
-        @csrf
-        @method('POST')
-        <form>
-          <div class="form-group">
-            <input type="hidden" class="form-control" name="fake-valid-nonce" id="nonce" placeholder="" value="12">
-            <input type="hidden" class="form-control" name="sponsor" id="nonce" placeholder="" value="{{$sponsor->id}}">
-            <input type="hidden" class="form-control" name="apartment" id="nonce" placeholder="" value="{{$apartment->id}}">
+@extends('layouts.app')
+@section('content')
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="container-payment-maxwidth">
+        <div class="container-payment-empty">
+    
+        </div>
+        <div class="container-payment-form py-3">
+          <h2> Inserisci un metodo di pagamento </h2>
+          <div>Stai acquistando la sponsorizzazione da <strong>{{$sponsor->hours}} h</strong>  al costo di <strong>{{$sponsor->price}}€</strong> per il tuo appartamento <strong>{{$apartment->title}}</strong</div>
+          <div id="dropin-container">
+    
           </div>
+          
+          <button type="button" class="btn btn-success" id="submit-button"> Conferma e attiva la promo </button>
+          <form name="form" action="{{route('payment.process')}}" method="post">
+            @csrf
+            @method('POST')
+            <form>
+              <div class="form-group">
+                <input type="hidden" class="form-control" name="fake-valid-nonce" id="nonce" placeholder="" value="12">
+                <input type="hidden" class="form-control" name="sponsor" id="nonce" placeholder="" value="{{$sponsor->id}}">
+                <input type="hidden" class="form-control" name="apartment" id="nonce" placeholder="" value="{{$apartment->id}}">
+              </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
+</div>
   <script type="module">
     var button = document.querySelector('#submit-button');
     braintree.dropin.create({
@@ -48,6 +45,7 @@
     });
     });
   </script>
-</body>
 
-</html>
+  @endsection
+
+

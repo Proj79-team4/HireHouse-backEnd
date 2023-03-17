@@ -103,12 +103,12 @@
                                                     <p class="mb-0">{{ countmessage($apartments) }}</p>
                                                 </div>
                                             </div>
-                                            <div class="d-flex pt-1">
+                                            {{-- <div class="d-flex pt-1">
                                                 <button type="button"
                                                     class="btn my-btn-outline-sabbia me-1 flex-grow-1">Chat</button>
                                                 <button type="button"
                                                     class="btn my-btn-sabbia flex-grow-1">STATISTICHE</button>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
