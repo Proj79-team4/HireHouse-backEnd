@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 class ApartmentController extends Controller
@@ -33,7 +35,49 @@ class ApartmentController extends Controller
         
         $data = $request->all();
         if (is_null($request->lat ) && is_null($request->lng ) ) {
-            $apartmentslist = Apartment::with('sponsors')->get();
+            $apartments = Apartment::query();
+            if (!is_null($request->title)) {
+                $apartments->where("title", "LIKE", "%{$request->title}%");
+            }
+            if (!is_null($request->num_beds)) {
+                $apartments->where("num_beds", ">=", "{$request->num_beds}");
+            }
+            if (!is_null($request->num_rooms)) {
+                $apartments->where("num_rooms", ">=", "{$request->num_rooms}");
+            }
+            if (!is_null($request->num_bathrooms)) {
+                $apartments->where("num_bathrooms", ">=", "{$request->num_bathrooms}");
+            }
+            if (!is_null($request->square_meters)) {
+                $apartments->where("square_meters", ">=", "{$request->square_meters}");
+            }
+            if (!is_null($request->square_meters)) {
+                $apartments->where("square_meters", ">=", "{$request->square_meters}");
+            }
+            if (!is_null($request->price)) {
+                $apartments->where("price", "<=", "{$request->price}");
+            }
+            $apartments->where("visibile","=",true);
+            // if(!is_null($request->services)){
+            //     $apartments->where("services","=",)
+    
+            // }
+            
+            //filtro per i servizi
+            $apartments = $apartments->with("services");
+            if($request->has('services') && count($request['services']) > 0) {
+                $services = $request['services'];
+    
+                $apartments = $apartments->whereHas('services', function($q) use ($services)
+                {
+                    $q->whereIn('service_id', $services);
+                }, '=', count($services));
+            }
+    
+           
+            
+            $apartmentslist = $apartments->with('sponsors')->get();
+            
         $apartmentFilteredList = [];
 
         foreach ($apartmentslist as $apartment) {
@@ -42,6 +86,9 @@ class ApartmentController extends Controller
             }
         }
 
+        
+
+        $apartmentFilteredList=$this->paginate($apartmentFilteredList,10);
         return response()->json($apartmentFilteredList);
             
             
@@ -131,9 +178,15 @@ class ApartmentController extends Controller
        }
        $apartmentsOutput=array_merge($apartmentSponsored,$apartmentNoSponsored);
        
+       
 
+
+       $apartmentsOutput=$this->paginate($apartmentsOutput,10);
 
         return response()->json($apartmentsOutput);
+
+
+       
     }
 
     public function index(){
@@ -152,10 +205,19 @@ class ApartmentController extends Controller
 
         
 
+        $apartments=$this->paginate($apartments,10);
         return response()->json($apartments);
     }
     public function show(Apartment $apartment){
         $apartment->load("services","rules","user");
         return response()->json($apartment);
     }
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
 }
+
+
