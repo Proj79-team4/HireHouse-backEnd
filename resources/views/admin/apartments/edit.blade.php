@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="container">
+
+    <h3 class="py-5 text-center">Modifica {{$apartment->title}}</h3>
 
     <form method="POST" action="{{ route('admin.apartments.update', $apartment->id) }}"
         class="row g-3 needs-validation " novalidate enctype="multipart/form-data">
@@ -294,8 +296,11 @@
 
         </div>
 
-        <div class="col-12">
-            <button class="btn btn-primary">Salva</button>
+        <div class="col-12 pb-4 text-center">
+            <button class="btn my-btn-turchese w-25">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Salva Modifiche
+            </button>
         </div>
 
     </form>

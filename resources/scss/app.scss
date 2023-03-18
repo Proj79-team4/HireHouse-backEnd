@@ -36,10 +36,8 @@ $biancosporco: #F9F7F3;
     .message-span{
         top:15px;
         right:15px;
-       
-        
-        
     }
+
     .container-account-card{
         position: sticky;
         top:200px;
@@ -50,6 +48,18 @@ $biancosporco: #F9F7F3;
     a{
         color:$turchese;
         font-size: 16px;
+    }
+}
+
+.apartment-image {
+    height: 60vh;
+    padding: 1rem 0;
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        display: block;
     }
 }
 
@@ -78,20 +88,39 @@ $biancosporco: #F9F7F3;
 }
 
 .my-btn-orange{
-    background-color: $orange;
+    background-color: $arancione;
     color: white;
+
     &:hover{
         background-color: #b05b2d;
     }
 }
 
-
 .bg-azzurro{
     background-color: $azzurro;
 }
+
 .bg-turchese{
     background-color: $turchese;
 }
+
+.bg-sabbia{
+    background-color: $biancosporco;
+}
+
 .wwas-not-validated{
     background-color: red;
+}
+
+.text-turchese{
+    color: $turchese;
+}
+
+.img-container{
+    img {
+        display: block;
+        width: 100%;
+        height: 100;
+        object-fit: cover;
+    }
 }

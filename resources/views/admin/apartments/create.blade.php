@@ -278,8 +278,11 @@
 
         </div>
 
-        <div class="col-12">
-            <button class="btn btn-primary">Pubblica</button>
+        <div class="col-12 pb-4 text-center">
+            <button class="btn my-btn-turchese w-25">
+                <i class="fa-solid fa-plus"></i>
+                Pubblica
+            </button>
         </div>
 
     </form>

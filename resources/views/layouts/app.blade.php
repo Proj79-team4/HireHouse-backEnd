@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🏠</text></svg>">
+
+    <title>HireHouse</title>
 
 
     <!-- Fonts -->
@@ -42,9 +44,9 @@
                     {{-- config('app.name', 'Laravel') --}}
                 </a>
                 
-                <div class="go_back d-flex align-items-center pt-2">
+                {{-- <div class="go_back d-flex align-items-center pt-2">
                     <a  href="{{url()->previous()}}"><i class=" fa-solid fa-arrow-rotate-left "></i></a>
-                </div>
+                </div> --}}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -71,7 +73,7 @@
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Iscriviti') }}</a>
                                 </li>
                             @endif
                         @else

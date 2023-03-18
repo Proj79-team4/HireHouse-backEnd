@@ -2,19 +2,19 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div class="container-payment-maxwidth">
         <div class="container-payment-empty">
     
         </div>
-        <div class="container-payment-form py-3">
+        <div class="container-payment-form py-3 mt-4">
           <h2> Inserisci un metodo di pagamento </h2>
           <div>Stai acquistando la sponsorizzazione da <strong>{{$sponsor->hours}} h</strong>  al costo di <strong>{{$sponsor->price}}€</strong> per il tuo appartamento <strong>{{$apartment->title}}</strong</div>
           <div id="dropin-container">
     
           </div>
           
-          <button type="button" class="btn btn-success" id="submit-button"> Conferma e attiva la promo </button>
+          <button type="button" class="btn my-btn-turchese" id="submit-button"> Conferma e attiva la promo </button>
           <form name="form" action="{{route('payment.process')}}" method="post">
             @csrf
             @method('POST')

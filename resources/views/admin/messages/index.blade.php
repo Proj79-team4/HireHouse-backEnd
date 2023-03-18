@@ -4,24 +4,29 @@
 
 <div class="container">
     <h2 class="mt-5">MESSAGGI</h2>
+    <div>Appartamento: </div>
 
-
-    <div class="row d-md-none justify-content-center pt-3">
+    <div class="row d-md-none pt-3">
       @foreach($messages as $message)
       <div class="col py-2">
-        <div class="toast d-block m-auto" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            
-            
-            <strong class="me-auto">{{$message->name}} / {{$message->email}}</strong>
-            <small>{{date("d/m/Y",strtotime($message->created_at))}}</small>
-            <form method="POST" class="form" action="{{route("admin.messages.delete",$message->id)}}">
-              @csrf
-              @method('delete')
-              <button type="submit" class="btn btn-danger m-2"><i class="fa-solid fa-trash"></i></button>
+        <div class="toast d-block" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header justify-content-between">
+            <div>
+              <strong class="me-auto text-dark">{{$message->name}}</strong>
+              <div class="text-muted">{{$message->email}}</div>
+            </div>
 
-            </form>
+            <div class="d-flex align-items-center">
+              <small>{{date("d/m/Y",strtotime($message->created_at))}}</small>
+  
+              <form method="POST" class="form" action="{{route("admin.messages.delete",$message->id)}}">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger m-2"><i class="fa-regular fa-trash-can"></i></button>
+              </form>
+            </div>
           </div>
+
           <div class="toast-body">
             {{$message->content}}
           </div>
@@ -54,8 +59,9 @@
                   <form method="POST" class="form" action="{{route("admin.messages.delete",$message->id)}}">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-danger">Cancella</button>
-
+                    <button type="submit" class="btn btn-sm btn-danger">
+                      Cancella
+                    </button>
                   </form>
                  
                 </td>
