@@ -94,7 +94,7 @@
                         Campo richiesto
                     </div>
 
-                <label for="floatingTextarea2">Descrizione</label>
+                <label for="floatingTextarea2">Descrizione*</label>
 
 
                 @error('description')
@@ -107,7 +107,7 @@
 
         {{-- Numero stanze --}}
         <div class="col-md-3">
-            <label for="inputRomms" class="form-label">Numero stanze</label>
+            <label for="inputRomms" class="form-label">Numero stanze*</label>
             <input type="number" class="form-control @error('num_rooms') is-invalid @enderror" id="inputRooms"
                 name="num_rooms" min="0" required>
             <div class="invalid-feedback">
@@ -123,7 +123,7 @@
 
         {{-- Numero bagni --}}
         <div class="col-md-3">
-            <label for="inputBathrooms" class="form-label">Numero bagni</label>
+            <label for="inputBathrooms" class="form-label">Numero bagni*</label>
             <input type="number" class="form-control @error('num_bathrooms') is-invalid @enderror" id="inputBathrooms"
                 name="num_bathrooms" min="0" required>
             <div class="invalid-feedback">
@@ -139,7 +139,7 @@
 
         {{-- Numero letti --}}
         <div class="col-md-3">
-            <label for="inputBeds" class="form-label">Numero letti</label>
+            <label for="inputBeds" class="form-label">Numero letti*</label>
             <input type="number" class="form-control @error('num_beds') is-invalid @enderror" id="inputBeds"
                 name="num_beds" min="0" required>
             <div class="invalid-feedback">
@@ -155,7 +155,7 @@
 
         {{-- Metri quadri --}}
         <div class="col-md-3">
-            <label for="inputSquareMeters" class="form-label">Metri quadri</label>
+            <label for="inputSquareMeters" class="form-label">Metri quadri*</label>
             <input type="number" class="form-control @error('square_meters') is-invalid @enderror"
                 id="inputSquareMeters" name="square_meters" min="0" required>
             <div class="invalid-feedback">
@@ -171,7 +171,7 @@
 
         {{-- Check-in --}}
         <div class="col-md-3">
-            <label for="inputPassword4" class="form-label">Check-in</label>
+            <label for="inputPassword4" class="form-label">Check-in*</label>
             <input type="time" class="form-control @error('check_in') is-invalid @enderror" id="inputPassword4"
                 placeholder="10:00" name="check_in" required>
 
@@ -184,7 +184,7 @@
 
         {{-- Check-out --}}
         <div class="col-md-3">
-            <label for="inputPassword4" class="form-label">Check-out</label>
+            <label for="inputPassword4" class="form-label">Check-out*</label>
             <input type="time" class="form-control @error('check_out') is-invalid @enderror" id="inputPassword4"
                 placeholder="18:00" name="check_out" required>
 
