@@ -20,7 +20,7 @@ class MessageController extends Controller
         };
         $messages = $apartment->messages;
 
-        return view("admin.messages.index",compact("messages"));
+        return view("admin.messages.index",compact("messages","apartment"));
     }
 
     /**

@@ -171,9 +171,15 @@ class ApartmentController extends Controller
         if (!$apartment->cover_img === "apartment_images/house_default.png") {
             Storage::delete($apartment->cover_img);
         }
+        
+        $apartment->load("sponsors");
         $apartment->rules()->detach();
         $apartment->services()->detach();
-        $apartment->sponsors()->detach();
+       $apartment->allSponsors()->detach();
+        $apartment->messages()->delete();
+        
+        
+       
         $apartment->delete();
 
         return redirect()->route("admin.dashboard");

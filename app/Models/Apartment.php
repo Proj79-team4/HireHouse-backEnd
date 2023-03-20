@@ -42,6 +42,9 @@ class Apartment extends Model
     {
         return $this->belongsToMany(Sponsor::class)->withPivot("start_date","end_date")->wherePivot("end_date",">",Carbon::now());
     }
+    public function allSponsors(){
+        return  $this->belongsToMany(Sponsor::class);
+    }
 
      // un appartamento può avere più Rules
      public function rules()

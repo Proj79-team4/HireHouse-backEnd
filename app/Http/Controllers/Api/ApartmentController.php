@@ -78,6 +78,7 @@ class ApartmentController extends Controller
             
             $apartmentslist = $apartments->with('sponsors')->get();
             
+            
         $apartmentFilteredList = [];
 
         foreach ($apartmentslist as $apartment) {
@@ -85,6 +86,7 @@ class ApartmentController extends Controller
                 $apartmentFilteredList[] = $apartment;
             }
         }
+        
 
         
 

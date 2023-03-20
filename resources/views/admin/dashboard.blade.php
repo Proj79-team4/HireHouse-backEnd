@@ -17,6 +17,7 @@
 
 @section('content')
     <div class="container user-dashboard pb-3">
+       
 
         <div class="row mt-5 flex-column-reverse flex-lg-row">
             {{-- Lista appartamenti --}}
@@ -64,13 +65,25 @@
                                         <i class="fa-regular fa-pen-to-square"></i>
                                         Modifica
                                     </a>
-                                    <form class="form" method="post" action="{{ route('admin.apartments.destroy', $apartment->id) }}">
+                                    <form class="form  " method="post" action="{{ route('admin.apartments.destroy', $apartment->id) }}">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn-sm btn btn-danger">
                                             <i class="fa-regular fa-trash-can"></i>
                                             Cancella
                                         </button>
+                                        <div class="position-absolute" style="z-index:1500">
+                                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="toast-body">
+                                                  Sei sicuro di voler cancellare questo elemento
+                                                  <div class="mt-2 pt-2 border-top">
+                                                    <button type="button" class="btn btn-primary btn-sm btn-confirm">Elimina</button>
+                                                    <button type="button" class="btn btn-secondary btn-sm btn-go-back" data-bs-dismiss="toast">Annulla</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                
+                                        </div>
                                     </form>
                                 </div>
 
@@ -125,15 +138,35 @@
 
     <script>
         let form = document.querySelectorAll(".form");
+       
+        
+
         form.forEach((formDelete) => {
             formDelete.addEventListener("submit", function(e) {
                 e.preventDefault();
-                const conferma = confirm("Vuoi cancellare questo progetto?");
-
-                if (conferma === true) {
+                console.log(e.target);
+                let formClicked=e.target;
+                const toastHTML=formClicked.querySelector(".toast");
+                const btnConfirm=formClicked.querySelector(".btn-confirm");
+                const btnGoBack=formClicked.querySelector(".btn-go-back");               
+                toastHTML.classList.add("d-block");
+                btnConfirm.addEventListener("click",()=>{
                     formDelete.submit();
-                }
+                    toastHTML.classList.toggle("d-block");
+                })
+                btnGoBack.addEventListener("click",()=>{
+                    toastHTML.classList.toggle("d-block");
+                })
+                
+
+
+                
+
+                
             })
         })
+
+        
+        
     </script>
 @endsection

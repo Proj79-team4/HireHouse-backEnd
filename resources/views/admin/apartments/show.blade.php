@@ -28,7 +28,7 @@
 
         </div>
 
-        <div>
+        {{-- <div>
             @if (session('status') === "success")
             <div class='alert alert-success'>
                 {{session('message')}}
@@ -38,7 +38,7 @@
                 {{session('message')}}
             </div>
             @endif
-        </div>
+        </div> --}}
 
         <div class="">
             <a href="{{route("admin.sponsors.index",$apartment->id)}}" class="btn my-btn-sabbia text-dark">

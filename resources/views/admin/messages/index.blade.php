@@ -3,8 +3,8 @@
 @section ('content')
 
 <div class="container">
-    <h2 class="mt-5">MESSAGGI</h2>
-    <div>Appartamento: </div>
+    <h3 class="mt-5">MESSAGGI</h3>
+    <div><strong>{{$apartment->title}}</strong></div>
 
     <div class="row d-md-none pt-3">
       @foreach($messages as $message)

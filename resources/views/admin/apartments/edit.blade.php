@@ -65,6 +65,9 @@
             <input type="text" class="form-control d-none @error(' full_address') is-invalid @enderror" id="inputAddress"
                 placeholder="1234 Main St" name="full_address"
                 value="{{ old('full_address') ? old('full_address') : $apartment->full_address }}" required>
+                <input type="hidden"   id="inputLat" name="latitude" value="{{$apartment->latitude}}" >
+                <input type="hidden"   id="inputLon" name="longitude" value="{{$apartment->longitude}}" >
+           
 
             <div class="map-view-container">
                 <div class='map-view'>
@@ -337,11 +340,18 @@
 </script>
 
 <script>
+      
+    const inputLat=document.querySelector("#inputLat");
+    const inputLon= document.querySelector("#inputLon");
+    let lat=parseFloat(inputLat.value);
+    let lon=parseFloat(inputLon.value);
+    
+    
     var map = tt.map({
         key: '6hakT8QU7IRSx9PCHGi5JyHTV2S7xWlD',
         container: 'map',
-        center: [41.9027835, 12.4963655],
-        zoom: 6,
+        center: [lon, lat],
+        zoom: 10,
         language: 'it-IT'
     });
     var infoHint = new InfoHint('info', 'bottom-center', 5000).addTo(document.getElementById('map'));
@@ -617,5 +627,21 @@
             form.classList.add('was-validated')
             }, false)
             })
+
+            this.addMarker(map);
+
+
+
+            function addMarker(map) {
+      const tt = window.tt;
+      var location = [lon, lat];
+      var popupOffset = 25;
+
+      var marker = new tt.Marker().setLngLat(location).addTo(map);
+      var popup = new tt.Popup({ offset: popupOffset }).setHTML(address.value);
+      marker.setPopup(popup).togglePopup();
+    }
+
+           
 </script>
 @endsection
