@@ -52,7 +52,7 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Prezzo: {{ $apartment->price }},00 €</li>
-                                <label class="list-group-item "> {{$apartment->visibile ? "Visibilie" : "Non visibile"}} </label>
+                                <label class="list-group-item "> {{$apartment->visibile ? "Visibile" : "Non visibile"}} </label>
                             </ul>
 
                             <div class="p-3">
